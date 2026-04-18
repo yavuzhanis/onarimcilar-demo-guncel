@@ -1,0 +1,1508 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hakkımızda | Onarımcılar</title>
+    <meta
+      name="description"
+      content="Onarımcılara Dair: Onarımcılar’ın neyi temsil ettiğini, hangi değerler üzerine yükseldiğini ve düşünsel yaklaşımını anlatan hakkımızda sayfası."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --bg: #f5efe8;
+        --bg-2: #fbf7f2;
+        --surface: rgba(255, 255, 255, 0.82);
+        --surface-strong: #ffffff;
+        --text: #221d18;
+        --muted: #6e6459;
+        --line: rgba(34, 29, 24, 0.1);
+        --accent: #b5452f;
+        --accent-2: #8f3322;
+        --accent-soft: rgba(181, 69, 47, 0.08);
+        --dark: #171311;
+        --dark-2: #221a16;
+        --gold: #d7b58b;
+        --max: 1240px;
+        --reading: 900px;
+        --radius: 28px;
+        --shadow: 0 16px 44px rgba(71, 52, 36, 0.08);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(181, 69, 47, 0.1),
+            transparent 24%
+          ),
+          radial-gradient(
+            circle at 92% 10%,
+            rgba(143, 51, 34, 0.08),
+            transparent 20%
+          ),
+          linear-gradient(180deg, #f8f3ee 0%, #f4ede6 100%);
+        line-height: 1.75;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        line-height: 1.08;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      #progressBar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent), #d4664d);
+        z-index: 9999;
+      }
+
+      .topbar-wrap {
+        position: sticky;
+        top: 12px;
+        z-index: 999;
+        padding-top: 12px;
+      }
+
+      .topbar {
+        max-width: var(--max);
+        margin: 0 auto;
+        width: calc(100% - 40px);
+        border: 1px solid rgba(34, 29, 24, 0.08);
+        background: rgba(255, 255, 255, 0.62);
+        backdrop-filter: blur(18px);
+        border-radius: 22px;
+        box-shadow: 0 10px 30px rgba(34, 29, 24, 0.05);
+        transition: 0.3s ease;
+      }
+
+      .topbar.scrolled {
+        box-shadow: 0 18px 40px rgba(34, 29, 24, 0.08);
+      }
+
+      .topbar-inner {
+        min-height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 0 22px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand-mark {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 14px 30px rgba(181, 69, 47, 0.22);
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+      }
+
+      .brand-text {
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .brand-text small {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+        margin-top: 2px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-item span {
+        cursor: pointer;
+        font-size: 14px;
+        color: #574d44;
+      }
+
+      .dropdown {
+        position: absolute;
+        top: 120%;
+        left: 0;
+        min-width: 220px;
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+        transition: 0.25s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .dropdown a {
+        font-size: 14px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        transition: 0.2s;
+      }
+
+      .dropdown a:hover {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      .nav-item:hover .dropdown {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 46px;
+        height: 46px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fff;
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      section {
+        padding: 82px 0;
+      }
+
+      .hero {
+        position: relative;
+        padding: 120px 0 72px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.04fr 0.96fr;
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .hero-copy {
+        padding: 14px 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #6a5e52;
+        font-size: 13px;
+        margin-bottom: 22px;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 6px rgba(181, 69, 47, 0.09);
+      }
+
+      .hero h1 {
+        font-size: clamp(42px, 7vw, 78px);
+        letter-spacing: -1.5px;
+        margin-bottom: 18px;
+        max-width: 850px;
+      }
+
+      .hero h1 span {
+        color: var(--accent);
+      }
+
+      .hero p {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 720px;
+        margin-bottom: 28px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        min-height: 52px;
+        padding: 0 22px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        font-weight: 600;
+        transition: 0.3s ease;
+      }
+
+      .btn-primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 14px 30px rgba(181, 69, 47, 0.18);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.72);
+        border-color: var(--line);
+      }
+
+      .btn-secondary:hover {
+        background: #fff;
+      }
+
+      .hero-panel {
+        position: relative;
+        min-height: 100%;
+        padding: 26px;
+        border-radius: 30px;
+        border: 1px solid var(--line);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.86)
+        );
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .hero-panel::before {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        top: -90px;
+        right: -90px;
+        background: radial-gradient(
+          circle,
+          rgba(181, 69, 47, 0.12),
+          transparent 72%
+        );
+      }
+
+      .panel-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 18px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .panel-tag {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #7a6657;
+      }
+
+      .dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .dots span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: rgba(34, 29, 24, 0.16);
+      }
+
+      .visual-card {
+        position: relative;
+        z-index: 1;
+        min-height: 330px;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(
+            135deg,
+            rgba(181, 69, 47, 0.16),
+            rgba(255, 255, 255, 0.16)
+          ),
+          linear-gradient(180deg, #eadfd3 0%, #f8f3ee 100%);
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .visual-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04)),
+          url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80")
+            center/cover no-repeat;
+        opacity: 0.86;
+      }
+
+      .visual-overlay {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 24px;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(23, 19, 17, 0.72) 100%
+        );
+      }
+
+      .visual-overlay strong {
+        display: block;
+        color: #fff;
+        font-size: 24px;
+        margin-bottom: 6px;
+      }
+
+      .visual-overlay span {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 16px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .mini-card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        background: #fff;
+      }
+
+      .mini-card h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+
+      .mini-card p {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .soft-section {
+        background: rgba(255, 255, 255, 0.42);
+        border-top: 1px solid rgba(34, 29, 24, 0.04);
+        border-bottom: 1px solid rgba(34, 29, 24, 0.04);
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
+        margin-bottom: 28px;
+      }
+
+      .section-head .left {
+        max-width: 860px;
+      }
+
+      .section-kicker {
+        color: var(--accent);
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1.8px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .section-title {
+        font-size: clamp(32px, 4vw, 52px);
+        margin-bottom: 14px;
+      }
+
+      .section-desc {
+        font-size: 17px;
+        color: var(--muted);
+      }
+
+      .manifesto-wrap {
+        max-width: var(--reading);
+        margin: 0 auto;
+      }
+
+      .manifesto-card,
+      .value-card,
+      .quote-panel,
+      .note-card {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .manifesto-card {
+        padding: 34px;
+      }
+
+      .manifesto-card + .manifesto-card {
+        margin-top: 18px;
+      }
+
+      .manifesto-card h3 {
+        font-size: 30px;
+        margin-bottom: 18px;
+      }
+
+      .manifesto-card p {
+        font-size: 17px;
+        color: #3e352d;
+        margin-bottom: 16px;
+      }
+
+      .manifesto-card p:last-child {
+        margin-bottom: 0;
+      }
+
+      .quote-panel {
+        padding: 28px 28px 28px 30px;
+        border-left: 4px solid var(--accent);
+        margin-bottom: 18px;
+      }
+
+      .quote-panel p {
+        font-size: 22px;
+        line-height: 1.6;
+        font-style: italic;
+        color: #3d3129;
+      }
+
+      .value-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .value-card {
+        padding: 24px 18px;
+        text-align: center;
+      }
+
+      .value-card strong {
+        display: block;
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: var(--accent);
+      }
+
+      .value-card span {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .note-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .note-card {
+        padding: 28px;
+      }
+
+      .note-card h3 {
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+
+      .note-card p {
+        color: var(--muted);
+      }
+
+      .final-quote {
+        margin-top: 48px;
+        text-align: center;
+        font-size: clamp(30px, 5vw, 46px);
+        line-height: 1.15;
+        font-family: "Playfair Display", serif;
+        color: var(--accent);
+      }
+
+      .footer-advanced {
+        border-top: 1px solid var(--line);
+        padding: 36px 0 30px;
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+
+      .footer-brand strong {
+        display: block;
+        font-size: 18px;
+      }
+
+      .footer-brand span {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        font-size: 14px;
+        color: #5a4e45;
+        transition: 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: var(--accent);
+      }
+
+      .footer-external {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .footer-external a {
+        font-size: 14px;
+        color: #5a4e45;
+        transition: 0.2s;
+      }
+
+      .footer-external a:hover {
+        color: var(--accent);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 10px;
+        margin-left: 6px;
+      }
+
+      .social-icons a {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.04);
+        color: #4a4038;
+        font-size: 15px;
+        transition: 0.25s ease;
+      }
+
+      .social-icons a:hover {
+        transform: translateY(-2px);
+        color: #fff;
+      }
+
+      .social-icons a:nth-child(1):hover {
+        background: #e1306c;
+      }
+
+      .social-icons a:nth-child(2):hover {
+        background: #000000;
+      }
+
+      .social-icons a:nth-child(3):hover {
+        background: #0077b5;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+      }
+
+      .footer-bottom p {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: 0.8s ease;
+      }
+
+      .reveal.show {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (max-width: 1180px) {
+        .hero-grid,
+        .note-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .value-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 920px) {
+        .mini-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .value-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .nav {
+          position: fixed;
+          top: 94px;
+          left: 20px;
+          right: 20px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 14px;
+          padding: 18px;
+          border-radius: 24px;
+          border: 1px solid var(--line);
+          background: #fff;
+          box-shadow: var(--shadow);
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-10px);
+          transition: 0.25s ease;
+        }
+
+        .nav.active {
+          opacity: 1;
+          pointer-events: auto;
+          transform: none;
+        }
+
+        .menu-toggle {
+          display: inline-grid;
+          place-items: center;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .container,
+        .topbar {
+          width: calc(100% - 24px);
+        }
+
+        .topbar-inner {
+          min-height: 72px;
+          padding: 0 16px;
+        }
+
+        .hero {
+          padding-top: 100px;
+        }
+
+        .hero h1 {
+          letter-spacing: -1px;
+        }
+
+        .manifesto-card,
+        .value-card,
+        .quote-panel,
+        .note-card {
+          border-radius: 22px;
+        }
+
+        .value-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .quote-panel p {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="progressBar"></div>
+
+    <div class="topbar-wrap">
+      <header class="topbar" id="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="brand">
+            <div class="brand-mark">O</div>
+            <div class="brand-text">
+              Onarımcılar
+              <small>Hakkımızda</small>
+            </div>
+          </a>
+
+          <nav class="nav" id="mobileNav">
+            <div class="nav-item">
+              <span>Onarımcılar</span>
+              <div class="dropdown">
+                <a href="hakkımızda.html">Hakkımızda</a>
+                <a href="#giris">Rüya’dan Seçkiler</a>
+                <a href="özellikler.html">Onarımcıların Özellikleri</a>
+                <a href="#mutfaklar">Çalışma Alanları</a>
+                <a href="first.html">İlk Onarımcılar </a>
+                <a href="son.html">Yeni Onarımcılar</a>
+                <a href="mektup.html">Onarımcılara Mektup</a>
+              </div>
+            </div>
+
+            <div class="nav-item">
+              <span>Hap Bilgiler</span>
+              <div class="dropdown">
+                <a href="#sacagli">Saçaklı Mantık</a>
+                <a href="#kuantum">Kuantum Fiziği</a>
+                <a href="#kedi">Schrödinger’in Kedisi</a>
+              </div>
+            </div>
+
+            <a href="turna.html">Turna</a>
+            <a href="#besa">5A</a>
+          </nav>
+
+          <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+      </header>
+    </div>
+
+    <main>
+      <section class="hero" id="anasayfa">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <div class="eyebrow">Onarımcılara Dair</div>
+            <h1>
+              Bir topluluk değil,
+              <span>bir onarım yönelişi.</span>
+            </h1>
+            <p>
+              Onarımcılar, insanı ve toplumu anlamaya çalışan; yalnızca
+              eleştiren değil, onarmaya niyet eden; düşünceyi kurucu bir zeminde
+              yeniden üretmeyi amaçlayan bir yaklaşımı temsil eder.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#onarimcilik" class="btn btn-primary">Metni Oku</a>
+              <a href="index.html" class="btn btn-secondary">Anasayfaya Dön</a>
+            </div>
+          </div>
+
+          <div class="hero-panel reveal">
+            <div class="panel-top">
+              <div class="panel-tag">Temel Çerçeve</div>
+              <div class="dots"><span></span><span></span><span></span></div>
+            </div>
+
+            <div class="visual-card">
+              <div class="visual-overlay">
+                <strong>İyileştirmek için önce zarar vermemek</strong>
+                <span>
+                  Onarımcı yaklaşım, insanı ve toplumu dönüştürmeyi değil; önce
+                  anlamayı, sonra onarmayı ilke edinir.
+                </span>
+              </div>
+            </div>
+
+            <div class="mini-grid">
+              <div class="mini-card">
+                <h4>Akıl</h4>
+                <p>Düşünmenin ve anlamanın ilk basamağı.</p>
+              </div>
+              <div class="mini-card">
+                <h4>Ahlâk</h4>
+                <p>Aklı kötülüğe sapmaktan koruyan denetim.</p>
+              </div>
+              <div class="mini-card">
+                <h4>Adalet</h4>
+                <p>Değerleri onurlandırmanın temel yolu.</p>
+              </div>
+              <div class="mini-card">
+                <h4>Aşk</h4>
+                <p>Dünyayı her gün yeniden kuran güç.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="onarimcilik" class="soft-section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Giriş</div>
+              <h2 class="section-title">Onarımcılara Dair</h2>
+              <p class="section-desc">
+                Bu sayfa, Onarımcılar’ın ne anlama geldiğini, hangi değerler
+                üzerinde yükseldiğini ve dünyaya nasıl baktığını anlatır.
+              </p>
+            </div>
+          </div>
+
+          <div class="manifesto-wrap">
+            <div class="quote-panel reveal">
+              <p>
+                “Dünyaya dair olup da, yüzde yüz doğru ya da yüzde yüz yanlış
+                olduğu kanıtlanmış tek bir olgu yoktur.”
+              </p>
+            </div>
+
+            <article class="manifesto-card reveal">
+              <h3>ONARIMCILAR ne anlama geliyor? Neyi onarıyorsunuz?</h3>
+              <p>
+                Onarımcılığı, bir nevi toplum ve insanlık hekimliği olarak
+                tanımlıyoruz. İyi ve güzel olandan sapmanın görüldüğü her yerde
+                Onarımcılar’a iş düştüğü kanısındayız.
+              </p>
+              <p>
+                Bir şeyleri yaparkenki en temel düsturumuz, tıp ilminin kadim
+                “PRIMUM NON NOCERE! — ÖNCE, ZARAR VERMEYECEKSİN!” deyişi.
+                Yani, hastayı iyileştirebilirsen iyileştir ama tedavi edeceğim
+                diye kötüye götüremezsin.
+              </p>
+              <p>Neyi onarıyoruz; en başta kendimizi.</p>
+            </article>
+
+            <article class="manifesto-card reveal">
+              <h3>
+                İyi ve güzel olan diyorsunuz. Peki, bir şeyin iyi ve/veya güzel
+                olup olmadığının ölçüsü ne?
+              </h3>
+              <p>
+                Her şeyde sonsuz bir göreceliğin insanı ve insan topluluklarını
+                çözülmeye götüreceği, bunu önlemek için de medeniyetin ezeli ve
+                ebedi, kadim birtakım değerlerin üstünde yükselmesi gerektiğini
+                düşünüyoruz.
+              </p>
+              <p>
+                Bir şeyin iyi ve/veya güzel olup olmadığı, bu kadim değerleri ne
+                derece kapsadığına bağlı olacaktır.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="degerler">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Kadim Değerler</div>
+              <h2 class="section-title">Onarımcı düşüncenin omurgası</h2>
+              <p class="section-desc">
+                Onarımcılar, medeniyetin ve insanî yükselişin bazı temel
+                değerler üzerine kurulması gerektiğini savunur.
+              </p>
+            </div>
+          </div>
+
+          <div class="manifesto-wrap">
+            <article class="manifesto-card reveal">
+              <h3>Nedir bu kadim değerler?</h3>
+              <p>
+                Akıl, Ahlâk, Adalet, Adap ve Aşk.
+              </p>
+              <p>
+                “Akıl” olmazsa olmaz koşuludur insan olmanın, ama tek başına
+                yeterli değildir. Çünkü “ahlâk”ın denetiminde olmayan aklın
+                eninde sonunda kötülüğe saplanması kaçınılmazdır.
+              </p>
+              <p>
+                “Adalet”, ahlaki değerleri onurlandırmanın yegâne yolu.
+                Özgürlüklerden çok daha önemli; çünkü ahlaki değerlerin
+                şekillendiremediği özgürlükler de, tıpkı akıl gibi, kötülüğe
+                bükülebiliyor.
+              </p>
+              <p>
+                “Adap”, akıl-ahlâk-adalet üçlüsünün yöntemi.
+              </p>
+              <p>
+                Ve “Aşk”... İnsanoğlunun bekasının sırrıdır. Dünyayı her gün,
+                yeniden kuran güçtür.
+              </p>
+            </article>
+
+            <div class="value-grid reveal">
+              <div class="value-card">
+                <strong>Akıl</strong>
+                <span>İnsan olmanın vazgeçilmez şartı</span>
+              </div>
+              <div class="value-card">
+                <strong>Ahlâk</strong>
+                <span>Aklın yönünü belirleyen denetim</span>
+              </div>
+              <div class="value-card">
+                <strong>Adalet</strong>
+                <span>Değerleri onurlandırmanın yolu</span>
+              </div>
+              <div class="value-card">
+                <strong>Adap</strong>
+                <span>Değerlerin hayata taşınma yöntemi</span>
+              </div>
+              <div class="value-card">
+                <strong>Aşk</strong>
+                <span>İnsanı ve dünyayı yeniden kuran güç</span>
+              </div>
+            </div>
+
+            <article class="manifesto-card reveal" style="margin-top: 18px;">
+              <h3>Denge anlayışı</h3>
+              <p>
+                Bu kadim değerleri hayata taşırken dürüstlük — yani özü sözü bir
+                olmak; yiğitlik — yani zorluğu ve imkânsızlığı ilkesel olarak
+                reddetmek; bu kadim değerlere sadakat; bu değerleri uygulamada
+                nezaket ve en önemlisi denge.
+              </p>
+              <p>
+                Denge, “Ayağı Yerde, Başı Bulutlarda” dediğimiz mertebedir.
+                Ayağı yerdelikten gerçekçiliği, mücessem ve kadim değerlere
+                adanmışlığı anlamalısınız: Akıl, Ahlâk, Adalet, Adap gibi.
+              </p>
+              <p>
+                “Başı bulutlarda” olmaktan ise özgürlüğü, tazeliği, yaratıcılığı,
+                düşünülmeyeni düşünmeyi ve Aşk’ı.
+              </p>
+            </article>
+
+            <article class="manifesto-card reveal">
+              <h3>Dengenin bozulduğu yer</h3>
+              <p>
+                Aşk içermeyen Akıl, Ahlâk, Adalet, Adap; öğrenmeyi zorlaştırır,
+                dogmaları artırır, bağnazlaştırır. Kişinin kendi inanç sistemini
+                sorgulayamamasını, kendi tertiplerine yenik düşmesini, yeniye ve
+                dönüşüme kapalı olmasını getirir.
+              </p>
+              <p>
+                Öte yandan, Akıl, Ahlâk, Adalet, Adap içermeyen Aşk; yüzeysellik,
+                muğlâklık, fantezileri yaşanmış gerçeklermiş gibi algılama,
+                delilsizlik, dillendirilen inancın yaşama geçirilemiyor olması,
+                uçukluk ve ciddiyetsizlik gibi tuzaklar içerir.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="birlikte" class="soft-section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Birlikte Yürümek</div>
+              <h2 class="section-title">Neden birlikte?</h2>
+              <p class="section-desc">
+                Onarımcılar bireysel gelişimi esas alır ama birlikte ilerlemenin
+                dönüştürücü gücüne de inanır.
+              </p>
+            </div>
+          </div>
+
+          <div class="manifesto-wrap">
+            <article class="manifesto-card reveal">
+              <h3>
+                En başta kendimizi onarıyoruz dediniz. Neden birlikte? Herkes
+                bireysel olarak kendini onarma yolunda ilerleyemez mi?
+              </h3>
+              <p>
+                Neden olmasın? Ama zaman, lüksümüz değil. Kısıtlı bir ömrümüz var
+                nihayetinde.
+              </p>
+              <p>
+                Türkiye’nin büyük bir entelektüel potansiyele sahip olduğuna
+                inanan bizler, bir nebze de olsa bu “saklı” cevheri açığa
+                çıkarmak, bu cevherin ışığıyla “aydınlanmak” ve “aydınlatmak”
+                amacındayız.
+              </p>
+              <p>
+                Bilimlerden bilgeliğe uzanan yolda rehberimiz
+                akıl-ahlâk-adalet-adap-aşk ilkeleri; lokomotifimiz hikmet
+                sevdasıyla dopdolu kalbimiz; ümidimizin kaynağı cesaretimiz ve
+                kararlılığımızdır.
+              </p>
+              <p>
+                Gönülden gönüle dostane bir birliktelikle, her birimizin bilgi
+                ve tecrübelerinden ortak istifadeyle bu sürecin aşamalarının
+                daha hızlı alınacağını düşünüyoruz. İmece usulü yani.
+              </p>
+              <p>
+                Kaldı ki, komşusu açken tok yatan bir Onarımcı da olamaz; bu
+                yüzden Onarımcılar, kendilerini, onarım yolundaki keşiflerini
+                diğer insanlarla zaten paylaşacak ve keşif alışverişine
+                gireceklerdir.
+              </p>
+              <p>
+                Fakat aslolan bireysel gelişme ve aydınlanmadır. Kendimizi
+                onarmaya verdiğimiz önem de, Allah’ın bir toplumun maruz kaldığı
+                şeyleri onlar iç dünyalarını değiştirmedikçe değiştirmeyeceğine
+                duyduğumuz inançtan gelmektedir. Zaten kişiler değişebilirse,
+                her şey değişebilir.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="fark">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Yaklaşım</div>
+              <h2 class="section-title">Diğer siyasi-kültürel oluşumlardan farkımız</h2>
+              <p class="section-desc">
+                Onarımcılar, hazır reçetelere değil; akış içinde onarılabilen bir
+                düşünceye ve canlı sistem mantığına yaslanır.
+              </p>
+            </div>
+          </div>
+
+          <div class="manifesto-wrap">
+            <article class="manifesto-card reveal">
+              <h3>
+                Türkiye özelinde düşünecek olursak, diğer siyasi-kültürel
+                oluşumlardan temel farkınız ne?
+              </h3>
+              <p>
+                Türkiye’de adı konmamış yüzlerce kült var ve bunların her birinin
+                ölümüne savundukları kurtuluş reçeteleri.
+              </p>
+              <p>
+                ONARIMCILAR’ın reçeteleri yok. Yok, çünkü ONARIMCILAR’ı bir
+                araya getiren, Kaos’un bir anlamı olduğu ve düzenin ancak ondan
+                ortaya çıkabileceği, kendiliğinden kurulabileceği bilgisi.
+              </p>
+              <p>
+                Kültlerin aksine, biz Kaos’un Ezeli ve Ebedi Gerçeklik’in bize
+                açılan yüzlerinden birisi olduğunun farkındayız. Başta insan
+                toplumları olmak üzere, dinamik sistemlerin hayal bile
+                edemediğimiz girift kurallara göre çalıştığı bilgisiyle
+                donanımlıyız.
+              </p>
+              <p>
+                Kaosla herhangi bir kavgamız yok; çünkü gerçekte ne olduğunu
+                bilme bahtiyarlığına sahibiz. Kısacası biz, kervanı yolda
+                düzenleyenlerdeniz.
+              </p>
+              <p>
+                Bize göre kişinin birinci sorumluluğu kendini ayakta tutmasıdır.
+                Kendinize hayrınız yoksa alternatif üretemez oluyorsunuz çünkü.
+                Alternatif üretemediğinizde başkalarına yardıma kalkışmanın
+                cüretkârlıktan ibaret olduğu ortaya çıkıyor.
+              </p>
+              <p>
+                Elimizin erişebildiği ile yetinmeyi, ihtiyaçlarımızla doğrudan
+                ilgisi olmayan ideallerin peşinden savrulmamayı; “insanlığı”
+                kurtarmak gibi yaşama geçiremeyeceğimiz bir ülkünün peşinden
+                koşmaktansa, yanındaki yaralıya bir damla su vermeyi yahut
+                bahçede domates yetiştirip kaldırımda satmayı öğrendik.
+              </p>
+            </article>
+
+            <article class="manifesto-card reveal">
+              <h3>Her an onarılan bir “ideoloji” mümkün mü?</h3>
+              <p>
+                “İdeoloji”den muradınız yaşayakalmaya elveren bir tasarım ise
+                mümkün.
+              </p>
+              <p>
+                Biyolojik bedenin iç şartlarını çevre şartlarından bağımsız
+                olarak sürekli sabit tutarak hayatta kalmaya imkân veren dinamik
+                denge anlamındaki “homeostazis” kavramına benzer bir ideolojidir
+                bu.
+              </p>
+              <p>
+                Kendimizi ve kâinatı her an, sürekli “Okuma” yoluyla edindiğimiz
+                yeni bulgular doğrultusunda onarabileceğimiz, bütüncül bir
+                ideoloji.
+              </p>
+              <p>
+                Bütüncül ideolojiden kastımız; dehanın tecrit edilemeyeceği
+                gerçeğidir. Dehada pencere pervazında dikilen sardunyanın bile
+                payı olduğunu söylüyoruz.
+              </p>
+              <p>
+                Bu gerçeği teslim etmezseniz sonuç yobazlık, baskı ve son
+                tahlilde atomizasyondan kaynaklanan bilgi tıkanması olacaktır.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="kaos" class="soft-section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Kaos</div>
+              <h2 class="section-title">Kaos istenmeyen bir durum değil midir?</h2>
+              <p class="section-desc">
+                Onarımcılar, kaosu kargaşa olarak değil; evrenin işleyiş biçimi
+                olarak okumaya çalışır.
+              </p>
+            </div>
+          </div>
+
+          <div class="manifesto-wrap">
+            <article class="manifesto-card reveal">
+              <h3>Kaos anlayışımız</h3>
+              <p>
+                Bu, “kaos” kelimesinden ne anladığınıza bağlıdır. Biz yanlış
+                kullanımıyla “kargaşa” anlamındaki kaosu kastetmiyor; evrenin
+                işleyişinin temeli olan ve düzen dediğimiz zihinsel benzeşimi
+                doğuran Kaos’tan korkmamaya çalışıyoruz.
+              </p>
+              <p>
+                Fiziksel anlamıyla Kaos, Ezeli ve Ebedi Gerçeklik’in bize açılan
+                yüzlerinden birisidir. İstisnai bir durum hiç değildir.
+              </p>
+              <p>
+                Dinamik sistemlerin işleyiş biçimi olduğu idrak edildiğinde,
+                Kaos’u engellemek, doğrusallığa dönüştürmek gibi bir meselenizin
+                olamayacağının farkına varıyorsunuz.
+              </p>
+              <p>
+                Kâinatla ahenk içinde yaşayakalacaksanız, Kaos’u hükmünü icra
+                edebilmesi için serbest bırakmanız gerektiğini anlıyorsunuz.
+              </p>
+              <p>
+                ONARIMCILAR, yaşamlarını Kaos’un ve kendi kendisini oluşturan
+                düzenin, canlı sistemlerin birbirlerini tamamlayan iki unsuru
+                olduğu bilgisinin üzerine kuruyor.
+              </p>
+              <p>
+                Kadim bir deyiş; “Tahta ateşi, ateş külü, kül toprağı, toprak
+                madeni yaratır. Maden döner toprak olur, tahtayı yaratır. Su
+                ateşi söndürür, ateş madeni eritir, maden tahtayı keser, tahta
+                toprağa karışır, toprak suya karışır...”
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="milliyetcilik">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Milliyetçilik</div>
+              <h2 class="section-title">Onarımcılar milliyetçiliğin neresinde?</h2>
+              <p class="section-desc">
+                Onarımcılar, hiçbir ulusun yaşam biçimini diğerinden üstün görmez;
+                insanlığı işbirliği içindeki simbiyotik bir bütün olarak okur.
+              </p>
+            </div>
+          </div>
+
+          <div class="manifesto-wrap">
+            <article class="manifesto-card reveal">
+              <h3>Uluslar ve insanlık</h3>
+              <p>
+                Hiçbir ulusun yaşam biçiminin diğerininkinden daha temel,
+                dolayısıyla daha vazgeçilmez, dolayısıyla daha üstün olduğunu
+                görmüyoruz.
+              </p>
+              <p>
+                Biz dâhil bütün milletlerin, gezegenimizin huzur ve esenliğine
+                dönük hasletlerinin tümünü benimsiyoruz.
+              </p>
+              <p>
+                Yeryüzü, işbirliği içinde yaşayan simbiyotik parçalardan oluşan
+                tek bir canlı organizmaya benzer.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="sonuc" class="soft-section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Son Söz</div>
+              <h2 class="section-title">Eklemek istediğiniz bir şeyler var mı?</h2>
+              <p class="section-desc">
+                Onarımcılar’a göre toplumu değiştirmek istiyorsanız, önce düşünce
+                biçiminizi değiştirmeniz gerekir.
+              </p>
+            </div>
+          </div>
+
+          <div class="manifesto-wrap">
+            <article class="manifesto-card reveal">
+              <h3>Dostoyevski’den bir hatırlatma</h3>
+              <p>
+                Dostoyevski’nin <em>Yeraltından Notlar</em> adlı eserinden bir
+                alıntı:
+              </p>
+              <p>
+                “Konuştuğunuz bütün bu şeyler... ‘başı sonu düşünülmüş, olası tüm
+                soruların cevapları hazır, matematiksel hesapları inceden
+                inceye yapılmış yeni bir ekonomi-politik... ve bu yeni
+                ekonomi-politiğin bütün meseleleri göz açıp kapanıncaya kadar
+                halledeceği, Kristal Saraylar kuracağı...’na dair
+                konuşmalarınız... İyi de, bizi bu sabırla kotarılmış, akıl işi
+                düzenlemeye sıkı bir tekme atmaktan alıkoyan ne?”
+              </p>
+              <p>
+                “İnsanın kendi özgür ve bağımsız iradesi... ne kadar vahşi olursa
+                olsun kendi kaprisi... ucu deliliğe kadar da gitse kendi
+                istekleri... En iyi ve en büyük doğrular bunlardır. Bu doğrular,
+                hiçbir sınıflandırmaya girmedikleri için kaale alınmazlar ama
+                sistemleri ve teorileri cehenneme yollayanlar da onlardır.”
+              </p>
+            </article>
+
+            <article class="manifesto-card reveal">
+              <h3>Hamamın değişmesi</h3>
+              <p>
+                Eğer toplumu değiştirmek istiyorsanız, öncelikle düşünce
+                biçiminizi değiştirmeniz gerekmekte.
+              </p>
+              <p>
+                Ve Onarımcılara göre düşünce biçiminin değişmesi, hamamın sabit
+                kalıp tellâkların değişmesi değil; hamamın değişmesidir.
+              </p>
+              <p>
+                İnsanlık tarihinin, kuantum fizikçileriyle sufi tayfasının el ele
+                olduğu bu büküm noktasında, top Malazgirt’ten bu yana ilk kez
+                ayağımızda.
+              </p>
+              <p>
+                Bu kısmetimizin farkında olmalı ve ona göre mevzilenmeliyiz.
+              </p>
+            </article>
+
+            <div class="quote-panel reveal" style="margin-top: 18px;">
+              <p>“Daha iyi bir dünya pekâlâ da mümkündür!”</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="notlar">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Kısa Notlar</div>
+              <h2 class="section-title">Bu sayfanın taşıdığı temel izlekler</h2>
+              <p class="section-desc">
+                Onarımcılar yaklaşımı, bazı temel başlıklar etrafında
+                okunabilir.
+              </p>
+            </div>
+          </div>
+
+          <div class="note-grid">
+            <article class="note-card reveal">
+              <h3>Önce zarar verme</h3>
+              <p>
+                Onarım fikri, iyi niyetle bile olsa daha büyük tahribat
+                oluşturmama sorumluluğunu merkeze alır.
+              </p>
+            </article>
+
+            <article class="note-card reveal">
+              <h3>Kadim değerlerle düşünmek</h3>
+              <p>
+                Akıl, Ahlâk, Adalet, Adap ve Aşk; düşüncenin ve eylemin temel
+                omurgası olarak kabul edilir.
+              </p>
+            </article>
+
+            <article class="note-card reveal">
+              <h3>Kaosu anlamak</h3>
+              <p>
+                Kaos, bastırılması gereken bir kargaşa değil; işleyişi kavranması
+                gereken dinamik bir gerçekliktir.
+              </p>
+            </article>
+
+            <article class="note-card reveal">
+              <h3>Sonsuz revizyon</h3>
+              <p>
+                Onarımcı düşünce, yeni bulgularla kendini sürekli gözden geçiren
+                ve onaran bir yapıya sahiptir.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-advanced">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <strong>Onarımcılar</strong>
+            <span>Bir topluluk değil, bir yöneliş.</span>
+          </div>
+
+          <div class="footer-links">
+            <a href="#anasayfa">Başlangıç</a>
+            <a href="index.html">Anasayfa</a>
+            <a href="turna.html">Turna</a>
+          </div>
+
+          <div class="footer-external">
+            <a href="https://alevalatli.org" target="_blank">alevalatli.org</a>
+            <a href="https://kapadokya.edu.tr" target="_blank">kapadokya.edu.tr</a>
+
+            <div class="social-icons">
+              <a href="#" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" target="_blank" aria-label="Twitter">
+                <i class="fab fa-x-twitter"></i>
+              </a>
+              <a href="#" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 Onarımcılar Manifestosu • Kapadokya Üniversitesi</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const menuToggle = document.getElementById("menuToggle");
+      const mobileNav = document.getElementById("mobileNav");
+      const topbar = document.getElementById("topbar");
+      const progressBar = document.getElementById("progressBar");
+
+      menuToggle.addEventListener("click", function () {
+        mobileNav.classList.toggle("active");
+      });
+
+      document.querySelectorAll(".nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileNav.classList.remove("active");
+        });
+      });
+
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 10) {
+          topbar.classList.add("scrolled");
+        } else {
+          topbar.classList.remove("scrolled");
+        }
+
+        const scrollTop = window.scrollY;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / docHeight) * 100;
+        progressBar.style.width = progress + "%";
+      });
+
+      const reveals = document.querySelectorAll(".reveal");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      reveals.forEach((item) => observer.observe(item));
+
+      document.querySelectorAll(".nav-item span").forEach((item) => {
+        item.addEventListener("click", () => {
+          const parent = item.parentElement;
+          parent.classList.toggle("open");
+        });
+      });
+    </script>
+  </body>
+</html>

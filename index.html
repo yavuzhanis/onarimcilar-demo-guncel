@@ -15,952 +15,93 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="source/css/style.css" />
     <style>
-      :root {
-        --bg: #f5efe8;
-        --bg-2: #fbf7f2;
-        --surface: rgba(255, 255, 255, 0.82);
-        --surface-strong: #ffffff;
-        --text: #221d18;
-        --muted: #6e6459;
-        --line: rgba(34, 29, 24, 0.1);
-        --accent: #b5452f;
-        --accent-2: #8f3322;
-        --accent-soft: rgba(181, 69, 47, 0.08);
-        --dark: #171311;
-        --dark-2: #221a16;
-        --gold: #d7b58b;
-        --max: 1240px;
-        --reading: 820px;
-        --radius: 28px;
-        --shadow: 0 16px 44px rgba(71, 52, 36, 0.08);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: "Inter", sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(
-            circle at top left,
-            rgba(181, 69, 47, 0.1),
-            transparent 24%
-          ),
-          radial-gradient(
-            circle at 92% 10%,
-            rgba(143, 51, 34, 0.08),
-            transparent 20%
-          ),
-          linear-gradient(180deg, #f8f3ee 0%, #f4ede6 100%);
-        line-height: 1.75;
-        overflow-x: hidden;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      img {
-        max-width: 100%;
-        display: block;
-      }
-
-      .container {
-        width: min(var(--max), calc(100% - 40px));
-        margin: 0 auto;
-      }
-
-      #progressBar {
+      .video-modal {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 4px;
-        background: linear-gradient(90deg, var(--accent), #d4664d);
+        inset: 0;
+        background: rgba(0, 0, 0, 0.82);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s ease;
         z-index: 9999;
       }
 
-      .topbar-wrap {
-        position: sticky;
-        top: 12px;
-        z-index: 999;
-        padding-top: 12px;
-      }
-
-      .topbar {
-        max-width: var(--max);
-        margin: 0 auto;
-        width: calc(100% - 40px);
-        border: 1px solid rgba(34, 29, 24, 0.08);
-        background: rgba(255, 255, 255, 0.62);
-        backdrop-filter: blur(18px);
-        border-radius: 22px;
-        box-shadow: 0 10px 30px rgba(34, 29, 24, 0.05);
-        transition: 0.3s ease;
-      }
-
-      .topbar.scrolled {
-        box-shadow: 0 18px 40px rgba(34, 29, 24, 0.08);
-      }
-
-      .topbar-inner {
-        min-height: 78px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 0 22px;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .brand-mark {
-        width: 50px;
-        height: 50px;
-        border-radius: 16px;
-        display: grid;
-        place-items: center;
-        color: #fff;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        box-shadow: 0 14px 30px rgba(181, 69, 47, 0.22);
-        font-family: "Playfair Display", serif;
-        font-size: 24px;
-      }
-
-      .brand-text {
-        font-weight: 700;
-        font-size: 16px;
-      }
-
-      .brand-text small {
-        display: block;
-        font-size: 12px;
-        color: var(--muted);
-        font-weight: 500;
-        margin-top: 2px;
-      }
-
-      .nav {
-        display: flex;
-        align-items: center;
-        gap: 22px;
-      }
-
-      .nav a {
-        font-size: 14px;
-        color: #574d44;
-        transition: 0.25s ease;
-      }
-
-      .nav a:hover {
-        color: var(--accent);
-      }
-
-      .nav-cta {
-        padding: 12px 18px;
-        border-radius: 999px;
-        border: 1px solid rgba(181, 69, 47, 0.24);
-        background: var(--accent-soft);
-        color: var(--accent) !important;
-        font-weight: 600;
-      }
-
-      .menu-toggle {
-        display: none;
-        width: 46px;
-        height: 46px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: #fff;
-        font-size: 18px;
-        cursor: pointer;
-      }
-
-      .hero {
-        position: relative;
-        padding: 120px 0 64px;
-      }
-
-      .hero-grid {
-        display: grid;
-        grid-template-columns: 1.08fr 0.92fr;
-        gap: 28px;
-        align-items: stretch;
-      }
-
-      .hero-copy {
-        padding: 14px 0;
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.72);
-        color: #6a5e52;
-        font-size: 13px;
-        margin-bottom: 22px;
-      }
-
-      .eyebrow::before {
-        content: "";
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--accent);
-        box-shadow: 0 0 0 6px rgba(181, 69, 47, 0.09);
-      }
-
-      h1,
-      h2,
-      h3,
-      h4 {
-        font-family: "Playfair Display", serif;
-        line-height: 1.08;
-      }
-
-      .hero h1 {
-        font-size: clamp(42px, 7vw, 80px);
-        letter-spacing: -1.5px;
-        margin-bottom: 18px;
-        max-width: 800px;
-      }
-
-      .hero h1 span {
-        color: var(--accent);
-      }
-
-      .hero p {
-        font-size: 18px;
-        color: var(--muted);
-        max-width: 720px;
-        margin-bottom: 28px;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-bottom: 30px;
-      }
-
-      .btn {
-        min-height: 52px;
-        padding: 0 22px;
-        border-radius: 999px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid transparent;
-        font-weight: 600;
-        transition: 0.3s ease;
-      }
-
-      .btn-primary {
-        position: relative;
-        overflow: hidden;
-        color: #fff;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        box-shadow: 0 14px 30px rgba(181, 69, 47, 0.18);
-      }
-
-      .btn-primary::after {
-        content: "";
-        position: absolute;
-        width: 130%;
-        height: 130%;
-        background: rgba(255, 255, 255, 0.18);
-        top: 100%;
-        left: -10%;
-        transform: rotate(12deg);
-        transition: 0.45s ease;
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-2px);
-      }
-
-      .btn-primary:hover::after {
-        top: -24%;
-      }
-
-      .btn-secondary {
-        background: rgba(255, 255, 255, 0.72);
-        border-color: var(--line);
-      }
-
-      .btn-secondary:hover {
-        background: #fff;
-      }
-
-      .hero-meta {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-        max-width: 760px;
-      }
-
-      .meta-box {
-        background: rgba(255, 255, 255, 0.82);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 18px;
-        box-shadow: var(--shadow);
-      }
-
-      .meta-box strong {
-        display: block;
-        font-size: 24px;
-        margin-bottom: 6px;
-      }
-
-      .meta-box span {
-        font-size: 13px;
-        color: var(--muted);
-      }
-
-      .hero-panel {
-        position: relative;
-        min-height: 100%;
-        padding: 26px;
-        border-radius: 30px;
-        border: 1px solid var(--line);
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.95),
-          rgba(255, 255, 255, 0.86)
-        );
-        box-shadow: var(--shadow);
-        overflow: hidden;
-        transition: 0.35s ease;
-      }
-
-      .hero-panel:hover {
-        transform: translateY(-4px) rotate(-0.3deg);
-      }
-
-      .hero-panel::before {
-        content: "";
-        position: absolute;
-        width: 260px;
-        height: 260px;
-        border-radius: 50%;
-        top: -90px;
-        right: -90px;
-        background: radial-gradient(
-          circle,
-          rgba(181, 69, 47, 0.12),
-          transparent 72%
-        );
-      }
-
-      .panel-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 18px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .panel-tag {
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        color: #7a6657;
-      }
-
-      .dots {
-        display: flex;
-        gap: 8px;
-      }
-
-      .dots span {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: rgba(34, 29, 24, 0.16);
-      }
-
-      .visual-card {
-        position: relative;
-        z-index: 1;
-        min-height: 330px;
-        border-radius: 24px;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        background:
-          linear-gradient(
-            135deg,
-            rgba(181, 69, 47, 0.16),
-            rgba(255, 255, 255, 0.16)
-          ),
-          linear-gradient(180deg, #eadfd3 0%, #f8f3ee 100%);
-        display: flex;
-        align-items: flex-end;
-      }
-
-      .visual-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-          linear-gradient(rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04)),
-          url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80")
-            center/cover no-repeat;
-        opacity: 0.86;
-      }
-
-      .visual-overlay {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        padding: 24px;
-        background: linear-gradient(
-          180deg,
-          transparent 0%,
-          rgba(23, 19, 17, 0.72) 100%
-        );
-      }
-
-      .visual-overlay strong {
-        display: block;
-        color: #fff;
-        font-size: 24px;
-        margin-bottom: 6px;
-      }
-
-      .visual-overlay span {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.9);
-      }
-
-      .mini-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-        margin-top: 16px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .mini-card {
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 18px;
-        background: #fff;
-      }
-
-      .mini-card h4 {
-        font-size: 16px;
-        margin-bottom: 8px;
-      }
-
-      .mini-card p {
-        font-size: 13px;
-        color: var(--muted);
-      }
-
-      section {
-        padding: 82px 0;
-      }
-
-      .soft-section {
-        background: rgba(255, 255, 255, 0.42);
-        border-top: 1px solid rgba(34, 29, 24, 0.04);
-        border-bottom: 1px solid rgba(34, 29, 24, 0.04);
-      }
-
-      .section-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 20px;
-        margin-bottom: 28px;
-      }
-
-      .section-head .left {
-        max-width: 860px;
-      }
-
-      .section-kicker {
-        color: var(--accent);
-        text-transform: uppercase;
-        font-size: 12px;
-        letter-spacing: 1.8px;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-
-      .section-title {
-        font-size: clamp(32px, 4vw, 52px);
-        margin-bottom: 14px;
-      }
-
-      .section-desc {
-        font-size: 17px;
-        color: var(--muted);
-      }
-
-      .manifesto-wrap {
-        max-width: var(--reading);
-        margin: 0 auto;
-      }
-
-      .manifesto-card,
-      .grid-card,
-      .fivea-card,
-      .kitchen-card,
-      .note-card,
-      .excerpt-card {
-        background: rgba(255, 255, 255, 0.88);
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        box-shadow: var(--shadow);
-      }
-
-      .manifesto-card {
-        padding: 34px;
-      }
-
-      .manifesto-card + .manifesto-card {
-        margin-top: 18px;
-      }
-
-      .manifesto-card h3 {
-        font-size: 30px;
-        margin-bottom: 18px;
-      }
-
-      .manifesto-card p {
-        font-size: 17px;
-        color: #3e352d;
-        margin-bottom: 16px;
-      }
-
-      .manifesto-card p:last-child {
-        margin-bottom: 0;
-      }
-
-      .quote-stack {
-        display: grid;
-        gap: 16px;
-      }
-
-      .quote-block {
-        padding: 24px 24px 24px 26px;
-        border-left: 4px solid var(--accent);
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.84);
-        border-top: 1px solid var(--line);
-        border-right: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-        box-shadow: var(--shadow);
-      }
-
-      .quote-block p {
-        margin: 0;
-        font-style: italic;
-        color: #493f36;
-        font-size: 18px;
-      }
-
-      .quote-source {
-        display: inline-block;
-        margin-top: 12px;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1.4px;
-        color: var(--accent);
-        font-weight: 700;
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-      }
-
-      .grid-card {
-        padding: 28px;
-        transition: 0.35s ease;
-      }
-
-      .grid-card:hover,
-      .fivea-card:hover,
-      .kitchen-card:hover,
-      .note-card:hover,
-      .excerpt-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 28px 60px rgba(34, 29, 24, 0.08);
-      }
-
-      .grid-card h3 {
-        font-size: 24px;
-        margin-bottom: 12px;
-      }
-
-      .grid-card p {
-        color: var(--muted);
-      }
-
-      .fivea-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 16px;
-      }
-
-      .fivea-card {
-        padding: 28px 22px;
-        text-align: center;
-        transition: 0.35s ease;
-      }
-
-      .fivea-no {
-        width: 48px;
-        height: 48px;
-        border-radius: 15px;
-        margin: 0 auto 18px;
-        display: grid;
-        place-items: center;
-        background: rgba(181, 69, 47, 0.08);
-        color: var(--accent);
-        font-weight: 700;
-      }
-
-      .fivea-card h3 {
-        font-size: 24px;
-        margin-bottom: 10px;
-      }
-
-      .fivea-card p {
-        font-size: 14px;
-        color: var(--muted);
-      }
-
-      .kitchen-toolbar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 20px;
-      }
-
-      .filter-btn {
-        min-height: 44px;
-        padding: 0 16px;
-        border-radius: 999px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.74);
-        color: #4e443c;
-        font-weight: 600;
-        cursor: pointer;
-        transition: 0.25s ease;
-      }
-
-      .filter-btn:hover,
-      .filter-btn.active {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: #fff;
-      }
-
-      .kitchen-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-      }
-
-      .kitchen-card {
-        padding: 22px;
-        transition: 0.35s ease;
-      }
-
-      .kitchen-code {
-        display: inline-flex;
-        min-width: 48px;
-        min-height: 36px;
-        padding: 0 12px;
-        align-items: center;
-        justify-content: center;
-        border-radius: 999px;
-        background: rgba(181, 69, 47, 0.08);
-        color: var(--accent);
-        font-weight: 700;
-        margin-bottom: 14px;
-      }
-
-      .kitchen-card h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
-      }
-
-      .kitchen-card p {
-        color: var(--muted);
-        font-size: 14px;
-      }
-
-      .notes-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-
-      .note-card {
-        padding: 24px;
-        transition: 0.35s ease;
-      }
-
-      .note-card h3 {
-        font-size: 22px;
-        margin-bottom: 12px;
-      }
-
-      .note-card p {
-        color: var(--muted);
-        font-size: 15px;
-      }
-
-      .letter-section {
-        position: relative;
-        background:
-          radial-gradient(
-            circle at top left,
-            rgba(215, 181, 139, 0.08),
-            transparent 28%
-          ),
-          linear-gradient(180deg, var(--dark) 0%, #110e0c 100%);
-        color: #f4ede6;
-      }
-
-      .letter-wrap {
-        max-width: 900px;
-        margin: 0 auto;
-      }
-
-      .letter-top {
-        text-align: center;
-        margin-bottom: 34px;
-      }
-
-      .letter-top .section-kicker {
-        color: var(--gold);
-      }
-
-      .letter-top .section-title {
-        color: #fff;
-        margin-bottom: 12px;
-      }
-
-      .letter-top .section-desc {
-        color: rgba(255, 255, 255, 0.74);
-      }
-
-      .letter-card {
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 30px;
-        background: rgba(255, 255, 255, 0.04);
-        backdrop-filter: blur(10px);
-        padding: 34px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
-      }
-
-      .letter-card p {
-        color: rgba(255, 255, 255, 0.88);
-        margin-bottom: 18px;
-        font-size: 17px;
-      }
-
-      .letter-sign {
-        margin-top: 28px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        color: var(--gold);
-        font-family: "Playfair Display", serif;
-        font-size: 28px;
-      }
-
-      .excerpt-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-      }
-
-      .excerpt-card {
-        padding: 26px;
-        transition: 0.35s ease;
-      }
-
-      .excerpt-card h3 {
-        font-size: 24px;
-        margin-bottom: 10px;
-      }
-
-      .excerpt-card p {
-        color: var(--muted);
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(28px);
-        transition: 0.8s ease;
-      }
-
-      .reveal.show {
+      .video-modal.active {
         opacity: 1;
-        transform: none;
+        pointer-events: auto;
       }
 
-      footer {
-        border-top: 1px solid var(--line);
-        padding: 30px 0 36px;
-        background: rgba(255, 255, 255, 0.56);
+      .video-modal-dialog {
+        position: relative;
+        width: min(960px, 100%);
+        aspect-ratio: 16 / 9;
+        background: #000;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
       }
 
-      .footer-inner {
-        display: flex;
-        justify-content: space-between;
-        gap: 18px;
-        align-items: center;
-        flex-wrap: wrap;
+      .video-modal-dialog iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
       }
 
-      .footer-inner p {
-        color: var(--muted);
-        font-size: 14px;
+      .video-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 42px;
+        height: 42px;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 2;
+        transition: 0.25s ease;
       }
 
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 18px;
-      }
-
-      .footer-links a {
-        font-size: 14px;
-        color: #5a4e45;
-      }
-
-      @media (max-width: 1180px) {
-        .hero-grid,
-        .grid-2,
-        .excerpt-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .fivea-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-
-        .kitchen-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-
-        .notes-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      @media (max-width: 920px) {
-        .hero-meta,
-        .mini-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .kitchen-grid,
-        .fivea-grid,
-        .notes-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .nav {
-          position: fixed;
-          top: 94px;
-          left: 20px;
-          right: 20px;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 14px;
-          padding: 18px;
-          border-radius: 24px;
-          border: 1px solid var(--line);
-          background: #fff;
-          box-shadow: var(--shadow);
-          opacity: 0;
-          pointer-events: none;
-          transform: translateY(-10px);
-          transition: 0.25s ease;
-        }
-
-        .nav.active {
-          opacity: 1;
-          pointer-events: auto;
-          transform: none;
-        }
-
-        .menu-toggle {
-          display: inline-grid;
-          place-items: center;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .container,
-        .topbar {
-          width: calc(100% - 24px);
-        }
-
-        .topbar-inner {
-          min-height: 72px;
-          padding: 0 16px;
-        }
-
-        .hero {
-          padding-top: 100px;
-        }
-
-        .hero h1 {
-          letter-spacing: -1px;
-        }
-
-        .manifesto-card,
-        .grid-card,
-        .fivea-card,
-        .kitchen-card,
-        .note-card,
-        .excerpt-card,
-        .letter-card {
-          border-radius: 22px;
-        }
-
-        .fivea-grid,
-        .kitchen-grid,
-        .notes-grid {
-          grid-template-columns: 1fr;
-        }
+      .video-close:hover {
+        background: rgba(255, 255, 255, 0.24);
       }
     </style>
   </head>
 
   <body>
+    <div class="video-modal" id="videoModal">
+      <div class="video-modal-dialog">
+        <button class="video-close" id="videoClose" aria-label="Videoyu kapat">
+          &times;
+        </button>
+        <iframe
+          id="videoFrame"
+          src=""
+          title="Video Oynatıcı"
+          allow="
+            accelerometer;
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture;
+          "
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+    </div>
     <div id="progressBar"></div>
 
     <div class="topbar-wrap">
@@ -975,19 +116,30 @@
           </a>
 
           <nav class="nav" id="mobileNav">
-            <a href="#anasayfa">Başlangıç</a>
-            <a href="#giris">Giriş</a>
-            <a href="#ilke">İlke Metni</a>
+            <div class="nav-item">
+              <span>Onarımcılar</span>
+              <div class="dropdown">
+                <a href="hakkımızda.html">Hakkımızda</a>
+                <a href="#giris">Rüya’dan Seçkiler</a>
+                <a href="özellikler.html">Onarımcıların Özellikleri</a>
+                <a href="#mutfaklar">Çalışma Alanları</a>
+                <a href="first.html">İlk Onarımcılar </a>
+                <a href="son.html">Yeni Onarımcılar</a>
+                <a href="mektup.html">Onarımcılara Mektup</a>
+              </div>
+            </div>
+
+            <div class="nav-item">
+              <span>Hap Bilgiler</span>
+              <div class="dropdown">
+                <a href="#sacagli">Saçaklı Mantık</a>
+                <a href="#kuantum">Kuantum Fiziği</a>
+                <a href="#kedi">Schrödinger’in Kedisi</a>
+              </div>
+            </div>
+
+            <a href="turna.html">Turna</a>
             <a href="#besa">5A</a>
-            <a href="#mutfaklar">Mutfaklar</a>
-            <a href="#mektup">Mektup</a>
-            <a href="index.html">Ana Siteye Dön</a>
-            <a
-              href="https://ogrencidekanligi.kapadokya.edu.tr/ogrenci-topluluklari/onarimcilar-toplulugu"
-              target="_blank"
-              class="nav-cta"
-              >Topluluğa Katıl</a
-            >
           </nav>
 
           <button class="menu-toggle" id="menuToggle">☰</button>
@@ -996,6 +148,7 @@
     </div>
 
     <main>
+      <!-- HERO -->
       <section class="hero" id="anasayfa">
         <div class="container hero-grid">
           <div class="hero-copy reveal">
@@ -1012,9 +165,13 @@
             </p>
 
             <div class="hero-actions">
-              <a href="#ilke" class="btn btn-primary">İlke Metnini Oku</a>
-              <a href="#mektup" class="btn btn-secondary">Mektuba Geç</a>
-              <a href="index.html" class="btn btn-secondary">Ana Sayfa</a>
+              <a href="#notlar" class="btn btn-primary">Hap Bilgiler</a>
+              <a
+                href="https://alevalatli.org"
+                target="_blank"
+                class="btn btn-secondary"
+                >Alev Alatlı</a
+              >
             </div>
 
             <div class="hero-meta">
@@ -1071,121 +228,221 @@
         </div>
       </section>
 
+      <!-- RÜYA'DAN SEÇKİLER -->
       <section id="giris" class="soft-section">
         <div class="container">
           <div class="section-head reveal">
             <div class="left">
-              <div class="section-kicker">Giriş</div>
-              <h2 class="section-title">Metnin açtığı kapı</h2>
+              <div class="section-kicker">Rüya</div>
+              <h2 class="section-title">Rüya’dan Seçkiler</h2>
               <p class="section-desc">
-                Onarımcılar’ın düşünsel tonu; korkuya teslim olmayan,
-                karmaşıklığı inkâr etmeyen, sahici dünyanın doğrusal olmayan
-                yapısını fark eden ve buna rağmen vazgeçmeyen bir dil kurar.
+                Düşüncenin kırılma anları, hakikatin parçaları ve bir yönelişin
+                izleri.
               </p>
             </div>
           </div>
 
-          <div class="manifesto-wrap quote-stack">
-            <div class="quote-block reveal">
-              <p>
-                “Korkma! Dağlar koni, bulutlar küre, yıldırımlar şaküli değil!
-                Doğrusal denklemler, sahici dünyanın mecazıdır; gerçek, doğrusal
-                denklemlerden ibaret değildir.”
-              </p>
-              <span class="quote-source">Rüya</span>
+          <div class="ruya-timeline">
+            <div class="timeline-item left reveal">
+              <div class="timeline-card">
+                <p>
+                  Korkma! Dağlar koni, bulutlar küre, yıldırımlar şaküli değil!
+                  Doğrusal denklemler, sahici dünyanın mecazıdır, gerçek
+                  doğrusal denklemlerden ibaret değildir!... İnan ve korkma...
+                </p>
+                <span>(Rüya: 62)</span>
+              </div>
             </div>
 
-            <div class="quote-block reveal">
-              <p>
-                “Dinamik sistemler hayal bile edemediğimiz karmaşık kurallara
-                göre çalışır. Bugün İstanbul’da kanat çırpan bir kelebek bir ay
-                sonra bambaşka bir yerde kasırgalara neden olabilir.”
-              </p>
-              <span class="quote-source">Rüya</span>
+            <div class="timeline-item right reveal">
+              <div class="timeline-card">
+                <p>
+                  KORK-MA!... Dinamik sistemler hayal bile edemediğimiz karmaşık
+                  kurallara göre çalışır. Bugün İstanbul’da kanat çırpan bir
+                  kelebek bir ay sonra PİR’in Dergâhı’nda kasırgalara neden
+                  olacaktır. İnan ve korkma!
+                </p>
+                <span>(Rüya: 62)</span>
+              </div>
             </div>
 
-            <div class="quote-block reveal">
-              <p>
-                “Felaketlere takılıp kalmayın ve asla vazgeçmeyin öğrenmekten.”
-              </p>
-              <span class="quote-source">Rüya</span>
+            <div class="timeline-item left reveal">
+              <div class="timeline-card">
+                <p>
+                  İnanan insanlar daha uzun yaşarlar, inanan uluslar
+                  yaşayakalırlar. Sakin olmakta fayda vardır, dinlemeyi mümkün
+                  kılar. Felaketlere takılıp kalmayın ve asla vazgeçmeyin
+                  öğrenmekten.
+                </p>
+                <span>(Rüya: 62)</span>
+              </div>
             </div>
 
-            <div class="quote-block reveal">
-              <p>
-                “ONARIMCILAR’ı bir araya getiren, Kaos’un bir anlamı olduğu ve
-                düzenin kendiliğinden kurulabileceği bilgisiydi.”
-              </p>
-              <span class="quote-source">Rüya</span>
+            <div class="timeline-item right reveal">
+              <div class="timeline-card">
+                <p>
+                  Durduğunda Yalçın Dağlar gibi tek dur, vurduğunda dev dalgalar
+                  gibi vur. Yükseldiğinde Seher Yıldızı gibi yüksel, indiğinde
+                  Beyaz Turna gibi kon, hızla ve usulca. Sıçramaya hazır bir
+                  panter gibi sağlam bas toprağa.
+                </p>
+                <span>(Rüya: 127)</span>
+              </div>
+            </div>
+
+            <div class="timeline-item left reveal">
+              <div class="timeline-card">
+                <p>
+                  Gövden Kayın Ağacı gibi sarsılmaz olsun. Tekerlek gibi dön,
+                  yay gibi esne, başak gibi eğil. Rüzgârda bir yaprak gibi
+                  sürüklen, suda bir kurşun gibi gömül. Süzüldüğünde avlanan bir
+                  kartal gibi müteyakkız, estiğinde zemheri boranları gibi
+                  aralıksız.
+                </p>
+                <span>(Rüya: 127)</span>
+              </div>
+            </div>
+
+            <div class="timeline-item right reveal">
+              <div class="timeline-card">
+                <p>
+                  Tabiatın en hakikatli aynasına sahibiz. Astronomi,
+                  ONARIMCILAR'ın toplumsal ve siyasi gündeminde ilk sırayı alır.
+                  Resmi geleneğimizdir. En büyük yatırımı heyet ilmine
+                  yapıyoruz. Göklerin egemenliğini temel alan bir dünya
+                  görüşümüz var.
+                </p>
+                <span>(Rüya: 62)</span>
+              </div>
+            </div>
+
+            <div class="timeline-item left reveal">
+              <div class="timeline-card">
+                <p>
+                  ONARIMCILAR'ı bir araya getiren, Kaos'un bir anlamı olduğu ve
+                  düzenin kendiliğinden kurulabileceği bilgisiydi. Kaos'la
+                  kavgamız yoktu. Biz, kervanı yolda düzdük.
+                </p>
+                <span>(Rüya: 205)</span>
+              </div>
+            </div>
+
+            <div class="timeline-item right reveal">
+              <div class="timeline-card">
+                <p>
+                  Bir ONARIMCI, Ezelî ve Ebedî Gerçek’in dayattığı her koşulda
+                  yaşayakalmak durumundadır.
+                </p>
+                <span>(Rüya: 244)</span>
+              </div>
+            </div>
+
+            <div class="timeline-item left reveal">
+              <div class="timeline-card">
+                <p>
+                  Siz ONARIMCILAR beni Ezelî ve Ebedî Gerçek’le barıştırmaya
+                  çalışıyorsunuz.
+                </p>
+                <span>– İmre Kadızade (Rüya: 18)</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="ilke">
+      <!-- VIDEO GALERİ -->
+      <section id="video-galeri" class="soft-section">
         <div class="container">
           <div class="section-head reveal">
             <div class="left">
-              <div class="section-kicker">İlke Metni</div>
-              <h2 class="section-title">TURNA: bir isimden fazlası</h2>
+              <div class="section-kicker">Video Galeri</div>
+              <h2 class="section-title">Turna üzerine seçkiler</h2>
               <p class="section-desc">
-                TURNA, Türkiye’nin sahip olduğu entelektüel potansiyeli açığa
-                çıkarma ve bu birikimi toplumsal aydınlanmaya dönüştürme
-                arzusuyla kurulan düşünsel bir çerçeveyi temsil eder.
+                Turna sembolünü, hafızayı ve düşünsel arka planı farklı
+                perspektiflerden ele alan video içerikleri.
               </p>
             </div>
           </div>
 
-          <div class="manifesto-wrap">
-            <article class="manifesto-card reveal">
-              <h3>Onarımcılar (TURNA) İlke Metni</h3>
-              <p>
-                TURNA; hiçbir bilimsel, dinsel veya tinsel deneyimi peşinen
-                dışlamayan; farklı ideolojilerin, kültürel birikimlerin ve
-                kutsal metinlerin bilgisini bir zenginlik olarak gören bütüncül
-                bir yaklaşımı önemser.
-              </p>
-              <p>
-                Bu yaklaşım, atomist ve keskin politik ayrışmaların ötesine
-                geçerek hikmet, bilgi ve derin kavrayış peşinde yürümeyi
-                hedefler. Onarımcılar için mesele yalnızca kanaat bildirmek
-                değil; farklı bilgi alanlarını birbirine temas ettirebilmek,
-                düşüncenin sertleşmesini değil olgunlaşmasını sağlayabilmektir.
-              </p>
-              <p>
-                Topluluk, kendi çizgisini daraltılmış bir ideolojik kimlik
-                üzerinden değil; anlamı çoğaltan, düşünmeyi derinleştiren ve
-                sorumluluk duygusunu büyüten bir kültür inşası üzerinden kurar.
-              </p>
-            </article>
-
-            <div class="grid-2" style="margin-top: 18px">
-              <div class="grid-card reveal">
-                <h3>Bu oluşuma neden ihtiyaç duyuldu?</h3>
-                <p>
-                  Mevcut medya, internet ve üniversite ortamlarında yürüyen
-                  tartışmaların çoğunda bir eksiklik hissedilmesi; bilgiye
-                  erişimin kolaylaşmasına rağmen nitelikli düşüncenin
-                  çoğalmaması; farklı fikirlerin seviyeli ve samimi biçimde
-                  konuşulabileceği alanların azalması bu ihtiyacın temelini
-                  oluşturdu.
-                </p>
+          <div class="video-grid">
+            <div class="video-card reveal" data-video="jyWBZkEj4Dw">
+              <img
+                src="https://img.youtube.com/vi/jyWBZkEj4Dw/maxresdefault.jpg"
+                alt="Turna Milliyetçiliği"
+              />
+              <div class="video-content">
+                <h3>Turna Milliyetçiliği</h3>
+                <span>Alev Alatlı söyleşisinden seçki</span>
               </div>
+            </div>
 
-              <div class="grid-card reveal">
-                <h3>Temel amaç</h3>
-                <p>
-                  Amaç; kâinata holistik bir bakışla yaklaşmak, ezeli ve ebedi
-                  gerçekliğe giden yolda hiçbir bilgi kırıntısını israf etmemek,
-                  geçmişin izlerini korurken önyargılardan arınmış bir gelecek
-                  tasavvuru kurabilmektir.
-                </p>
+            <div class="video-card reveal" data-video="jyWBZkEj4Dw">
+              <img
+                src="https://img.youtube.com/vi/jyWBZkEj4Dw/hqdefault.jpg"
+                alt="Turna ve hafıza"
+              />
+              <div class="video-content">
+                <h3>Turna ve Hafıza</h3>
+                <span>Sembol, aidiyet ve düşünsel zemin</span>
+              </div>
+            </div>
+
+            <div class="video-card reveal" data-video="jyWBZkEj4Dw">
+              <img
+                src="https://img.youtube.com/vi/jyWBZkEj4Dw/mqdefault.jpg"
+                alt="Turna üzerine okuma"
+              />
+              <div class="video-content">
+                <h3>Turna Üzerine Okuma</h3>
+                <span>Metin, söyleşi ve kavramsal yaklaşım</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- TURNA YÖNLENDİRME -->
+      <section id="turna-dosya">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Turna</div>
+              <h2 class="section-title">Bir isimden daha fazlası</h2>
+              <p class="section-desc">
+                Turna; hafızayı, geçişi, umudu ve ait olunan zemini koruma
+                sorumluluğunu taşıyan çok katmanlı bir semboldür.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="grid-card reveal">
+              <h3>Turna neyi temsil eder?</h3>
+              <p>
+                Turnanın kültürel anlamı, barış ve hafıza ile kurduğu ilişki,
+                Hiroşima hikâyesi ve düşünsel arka planı ayrı bir sayfada daha
+                derinlikli biçimde ele alınır.
+              </p>
+            </div>
+
+            <div class="grid-card reveal">
+              <h3>Turna sayfasına geç</h3>
+              <p>
+                Turna üzerine alıntılar, “Turna Milliyetçiliği” yaklaşımı ve
+                sembolün düşünsel açılımı için detay sayfasını inceleyin.
+              </p>
+              <div
+                class="hero-actions"
+                style="margin-top: 18px; margin-bottom: 0"
+              >
+                <a href="turna.html" class="btn btn-primary">Turna Hakkında</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AMAÇ VE ÇALIŞMA BİÇİMİ -->
       <section id="amac-faaliyet" class="soft-section">
         <div class="container">
           <div class="section-head reveal">
@@ -1240,39 +497,7 @@
         </div>
       </section>
 
-      <section id="turna">
-        <div class="container">
-          <div class="section-head reveal">
-            <div class="left">
-              <div class="section-kicker">Turna Hakkında</div>
-              <h2 class="section-title">Barış, uzun ömür ve geçişin sembolü</h2>
-              <p class="section-desc">
-                “Turna” ismi; Asya kültürlerinde mutluluk, uzun yaşam, barış ve
-                iyi niyetle ilişkilendirilen güçlü bir simgesel çerçeve taşır.
-              </p>
-            </div>
-          </div>
-
-          <div class="manifesto-wrap">
-            <article class="manifesto-card reveal">
-              <p>
-                Turnalar, göç yollarında siyasi sınır tanımayan, farklı
-                coğrafyaları birbirine bağlayan canlılar olarak uluslararası iyi
-                niyetin sembolleri arasında görülür. Ekosistemi koruyan bir
-                şemsiye tür olarak anılmaları da bu isme ayrı bir anlam
-                kazandırır.
-              </p>
-              <p>
-                Aynı zamanda Hiroşima sonrası barış umuduyla kâğıttan bin turna
-                yapma hikâyesi, ismin taşıdığı manevi derinliği güçlendirir.
-                Böylece “Turna”, yalnızca bir isim değil; hafıza, umut, geçiş ve
-                onarma iradesiyle temas eden bir simgeye dönüşür.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
+      <!-- 5A -->
       <section id="besa" class="soft-section">
         <div class="container">
           <div class="section-head reveal">
@@ -1336,6 +561,7 @@
         </div>
       </section>
 
+      <!-- MUTFAKLAR -->
       <section id="mutfaklar">
         <div class="container">
           <div class="section-head reveal">
@@ -1461,6 +687,7 @@
         </div>
       </section>
 
+      <!-- HAP BİLGİLER -->
       <section id="notlar" class="soft-section">
         <div class="container">
           <div class="section-head reveal">
@@ -1476,7 +703,7 @@
           </div>
 
           <div class="notes-grid">
-            <article class="note-card reveal">
+            <article class="note-card reveal" id="sacagli">
               <h3>Saçaklı Mantık</h3>
               <p>
                 “Ya doğru ya yanlış” ikiliğini aşarak gri alanları düşünebilen
@@ -1485,7 +712,7 @@
               </p>
             </article>
 
-            <article class="note-card reveal">
+            <article class="note-card reveal" id="kedi">
               <h3>Schrödinger’in Kedisi</h3>
               <p>
                 Kuantum düşüncesi, bir şeyin yalnızca tek bir kesinlik içinde
@@ -1493,7 +720,7 @@
               </p>
             </article>
 
-            <article class="note-card reveal">
+            <article class="note-card reveal" id="kuantum">
               <h3>Kaos Teorisi</h3>
               <p>
                 Küçük değişimlerin büyük sonuçlar doğurabileceği bilgisi,
@@ -1531,176 +758,56 @@
           </div>
         </div>
       </section>
-
-      <section id="seckiler">
-        <div class="container">
-          <div class="section-head reveal">
-            <div class="left">
-              <div class="section-kicker">Seçkiler</div>
-              <h2 class="section-title">
-                Onarımcılar ile ilişkilendirilen alıntılar
-              </h2>
-              <p class="section-desc">
-                Bu alan, ileride genişletilebilir bir seçkiler bölümü olarak da
-                çalışabilir.
-              </p>
-            </div>
-          </div>
-
-          <div class="excerpt-grid">
-            <article class="excerpt-card reveal">
-              <h3>Yaşayakalmak</h3>
-              <p>
-                Bir Onarımcı, ezelî ve ebedî gerçekliğin dayattığı her koşulda
-                yaşama iradesini, dirayeti ve anlam arayışını sürdürmek
-                durumundadır.
-              </p>
-            </article>
-
-            <article class="excerpt-card reveal">
-              <h3>Düzen ve Kaos</h3>
-              <p>
-                Kaos ile kavga etmeyen; onun içindeki anlamı fark ederek düzenin
-                nasıl ortaya çıkabileceğini araştıran bir yaklaşım esastır.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="mektup" class="letter-section">
-        <div class="container">
-          <div class="letter-wrap">
-            <div class="letter-top reveal">
-              <div class="section-kicker">Onarımcılara Mektup</div>
-              <h2 class="section-title">Bir dijital kitapçık bölümü</h2>
-              <p class="section-desc">
-                Bu bölüm, ileride sayfa çevriliyormuş hissi veren ayrı bir
-                deneyime de dönüştürülebilir.
-              </p>
-            </div>
-
-            <article class="letter-card reveal">
-              <p>
-                Bu dünyaya dair olup da yüzde yüz doğru ya da yüzde yüz yanlış
-                olduğu kanıtlanmış tek bir olgu ya da veri yoktur. Sahici dünya,
-                cetvelle çizilmiş kadar düzgün değil; puslu, dağınık ve çok
-                katmanlıdır. Gerçeklik, yalnızca doğrusal sistemlerle
-                kavranamaz.
-              </p>
-              <p>
-                İnsan aklı, dünya ve evren üzerine tartışmasız gerçeği çözmeye
-                tek başına yetmez; ama yine de vazgeçilmezdir. Ne var ki aklın
-                şerre sapmaması için ahlâk gerekir; ahlâkın onurlandırılması
-                için adalet gerekir; bütün bunların hayata geçirilebilmesi için
-                de adap gerekir.
-              </p>
-              <p>
-                Aşk ise bu çerçevede yalnızca bireysel bir duygu değil; insanı
-                dönüştüren, maneviyatı derinleştiren ve hayatı yeniden kuran bir
-                güç olarak belirir. İnsanın bekâsını, toplumsal sürekliliği ve
-                kendisinden sonra yaşayacak değerler bırakma arzusunu diri
-                tutar.
-              </p>
-              <p>
-                Ölümün karşısında bile bütünü düşünen, yalnızca bireyin ömrünü
-                değil; ondan sonra yaşayacak “hoş seda”yı, erdemi, iyiliği ve
-                güveni önceleyen bakış, Onarımcılar’ın omurgasını oluşturan
-                düşünsel zemine yaklaşır.
-              </p>
-              <p>
-                Mesele, yalnızca bugünün siyasi veya kültürel tartışmalarında
-                taraf olmak değil; hangi kavramlarla düşündüğümüzü, hangi dille
-                konuştuğumuzu, hangi değerlerle yürüdüğümüzü hatırlamaktır.
-                Bilimle inanç, akılla hikmet, toplumsal gerçeklikle manevi ufuk
-                arasında kopmaz bağlar kurabilmektir.
-              </p>
-
-              <div class="letter-sign">Alev Alatlı</div>
-            </article>
-          </div>
-        </div>
-      </section>
     </main>
 
-    <footer>
-      <div class="container footer-inner">
-        <p>© 2026 Onarımcılar Manifestosu • Kapadokya Üniversitesi</p>
+    <footer class="footer-advanced">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <strong>Onarımcılar</strong>
+            <span>Bir topluluk değil, bir yöneliş.</span>
+          </div>
 
-        <div class="footer-links">
-          <a href="#anasayfa">Başlangıç</a>
-          <a href="#ilke">İlke Metni</a>
-          <a href="#besa">5A</a>
-          <a href="#mutfaklar">Mutfaklar</a>
-          <a href="#mektup">Mektup</a>
-          <a href="index.html">Ana Site</a>
+          <div class="footer-links">
+            <a href="#anasayfa">Başlangıç</a>
+            <a href="index.html">Anasayfa</a>
+          </div>
+
+          <div class="footer-external">
+            <a href="https://alevalatli.org" target="_blank">alevalatli.org</a>
+            <a href="https://kapadokya.edu.tr" target="_blank"
+              >kapadokya.edu.tr</a
+            >
+
+            <div class="social-icons">
+              <a href="#" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" target="_blank" aria-label="Twitter">
+                <i class="fab fa-x-twitter"></i>
+              </a>
+              <a href="#" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 Onarımcılar Manifestosu • Kapadokya Üniversitesi</p>
         </div>
       </div>
     </footer>
 
+    <script src="source/js/main.js"></script>
     <script>
-      const menuToggle = document.getElementById("menuToggle");
-      const mobileNav = document.getElementById("mobileNav");
-      const topbar = document.getElementById("topbar");
-      const progressBar = document.getElementById("progressBar");
-
-      menuToggle.addEventListener("click", function () {
-        mobileNav.classList.toggle("active");
-      });
-
-      document.querySelectorAll(".nav a").forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileNav.classList.remove("active");
-        });
-      });
-
-      window.addEventListener("scroll", function () {
-        if (window.scrollY > 10) {
-          topbar.classList.add("scrolled");
-        } else {
-          topbar.classList.remove("scrolled");
-        }
-
-        const scrollTop = window.scrollY;
-        const docHeight = document.body.scrollHeight - window.innerHeight;
-        const progress = (scrollTop / docHeight) * 100;
-        progressBar.style.width = progress + "%";
-      });
-
-      const reveals = document.querySelectorAll(".reveal");
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("show");
-            }
-          });
-        },
-        { threshold: 0.12 },
-      );
-
-      reveals.forEach((item) => observer.observe(item));
-
-      const filterButtons = document.querySelectorAll(".filter-btn");
-      const kitchenCards = document.querySelectorAll(".kitchen-card");
-
-      filterButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          filterButtons.forEach((btn) => btn.classList.remove("active"));
-          button.classList.add("active");
-
-          const filter = button.dataset.filter;
-
-          kitchenCards.forEach((card) => {
-            if (filter === "all" || card.dataset.category === filter) {
-              card.style.display = "block";
-            } else {
-              card.style.display = "none";
-            }
-          });
+      document.querySelectorAll(".nav-item span").forEach((item) => {
+        item.addEventListener("click", () => {
+          const parent = item.parentElement;
+          parent.classList.toggle("open");
         });
       });
     </script>
+    <script src="source/js/VideoCard.js"></script>
   </body>
 </html>
