@@ -887,7 +887,12 @@
           place-items: center;
         }
       }
-
+      @media (max-width: 768px) {
+        .letter-copy p {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
       @media (max-width: 640px) {
         .container,
         .topbar {
@@ -1599,6 +1604,13 @@
           parent.classList.toggle("open");
         });
       });
+    </script>
+    <script>
+    if (window.innerWidth < 768) {
+      document.querySelectorAll(".letter-copy p").forEach(p => {
+        p.classList.add("show");
+      });
+    }
     </script>
   </body>
 </html>
