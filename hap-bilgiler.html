@@ -1,0 +1,1351 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hap Bilgiler | Onarımcılar</title>
+    <meta
+      name="description"
+      content="Hap bilgiler ve düşünsel izlekler: saçaklı mantık, Schrödinger’in kedisi, kaos teorisi, ikinci aydınlanma çağı, anadil ve şuur, safsatalar."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --bg: #f5efe8;
+        --bg-2: #fbf7f2;
+        --surface: rgba(255, 255, 255, 0.82);
+        --surface-strong: #ffffff;
+        --text: #221d18;
+        --muted: #6e6459;
+        --line: rgba(34, 29, 24, 0.1);
+        --accent: #b5452f;
+        --accent-2: #8f3322;
+        --accent-soft: rgba(181, 69, 47, 0.08);
+        --dark: #171311;
+        --gold: #d7b58b;
+        --max: 1240px;
+        --reading: 880px;
+        --radius: 28px;
+        --shadow: 0 16px 44px rgba(71, 52, 36, 0.08);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(181, 69, 47, 0.1),
+            transparent 24%
+          ),
+          radial-gradient(
+            circle at 92% 10%,
+            rgba(143, 51, 34, 0.08),
+            transparent 20%
+          ),
+          linear-gradient(180deg, #f8f3ee 0%, #f4ede6 100%);
+        line-height: 1.75;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        line-height: 1.08;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      #progressBar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent), #d4664d);
+        z-index: 9999;
+      }
+
+      .topbar-wrap {
+        position: sticky;
+        top: 12px;
+        z-index: 999;
+        padding-top: 12px;
+      }
+
+      .topbar {
+        max-width: var(--max);
+        margin: 0 auto;
+        width: calc(100% - 40px);
+        border: 1px solid rgba(34, 29, 24, 0.08);
+        background: rgba(255, 255, 255, 0.62);
+        backdrop-filter: blur(18px);
+        border-radius: 22px;
+        box-shadow: 0 10px 30px rgba(34, 29, 24, 0.05);
+        transition: 0.3s ease;
+      }
+
+      .topbar.scrolled {
+        box-shadow: 0 18px 40px rgba(34, 29, 24, 0.08);
+      }
+
+      .topbar-inner {
+        min-height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 0 22px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand-mark {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 14px 30px rgba(181, 69, 47, 0.22);
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+      }
+
+      .brand-text {
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .brand-text small {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+        margin-top: 2px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-item span {
+        cursor: pointer;
+        font-size: 14px;
+        color: #574d44;
+      }
+
+      .dropdown {
+        position: absolute;
+        top: 120%;
+        left: 0;
+        min-width: 230px;
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+        transition: 0.25s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .dropdown a {
+        font-size: 14px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        transition: 0.2s;
+      }
+
+      .dropdown a:hover {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      .nav-item:hover .dropdown {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 46px;
+        height: 46px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fff;
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      section {
+        padding: 82px 0;
+      }
+
+      .hero {
+        position: relative;
+        padding: 120px 0 70px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.04fr 0.96fr;
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .hero-copy {
+        padding: 14px 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #6a5e52;
+        font-size: 13px;
+        margin-bottom: 22px;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 6px rgba(181, 69, 47, 0.09);
+      }
+
+      .hero h1 {
+        font-size: clamp(42px, 7vw, 78px);
+        letter-spacing: -1.5px;
+        margin-bottom: 18px;
+        max-width: 860px;
+      }
+
+      .hero h1 span {
+        color: var(--accent);
+      }
+
+      .hero p {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 720px;
+        margin-bottom: 28px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        min-height: 52px;
+        padding: 0 22px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        font-weight: 600;
+        transition: 0.3s ease;
+      }
+
+      .btn-primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 14px 30px rgba(181, 69, 47, 0.18);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.72);
+        border-color: var(--line);
+      }
+
+      .btn-secondary:hover {
+        background: #fff;
+      }
+
+      .hero-meta {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        max-width: 780px;
+      }
+
+      .meta-box {
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .meta-box strong {
+        display: block;
+        font-size: 24px;
+        margin-bottom: 6px;
+      }
+
+      .meta-box span {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .hero-panel {
+        position: relative;
+        min-height: 100%;
+        padding: 26px;
+        border-radius: 30px;
+        border: 1px solid var(--line);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.86)
+        );
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .hero-panel::before {
+        content: "";
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        top: -90px;
+        right: -90px;
+        background: radial-gradient(
+          circle,
+          rgba(181, 69, 47, 0.12),
+          transparent 72%
+        );
+      }
+
+      .panel-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 18px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .panel-tag {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #7a6657;
+      }
+
+      .dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .dots span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: rgba(34, 29, 24, 0.16);
+      }
+
+      .visual-card {
+        position: relative;
+        z-index: 1;
+        min-height: 330px;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(
+            135deg,
+            rgba(181, 69, 47, 0.16),
+            rgba(255, 255, 255, 0.16)
+          ),
+          linear-gradient(180deg, #eadfd3 0%, #f8f3ee 100%);
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .visual-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04)),
+          url("https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?auto=format&fit=crop&w=1200&q=80")
+            center/cover no-repeat;
+        opacity: 0.86;
+      }
+
+      .visual-overlay {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 24px;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(23, 19, 17, 0.72) 100%
+        );
+      }
+
+      .visual-overlay strong {
+        display: block;
+        color: #fff;
+        font-size: 24px;
+        margin-bottom: 6px;
+      }
+
+      .visual-overlay span {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 16px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .mini-card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        background: #fff;
+      }
+
+      .mini-card h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+
+      .mini-card p {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .soft-section {
+        background: rgba(255, 255, 255, 0.42);
+        border-top: 1px solid rgba(34, 29, 24, 0.04);
+        border-bottom: 1px solid rgba(34, 29, 24, 0.04);
+      }
+
+      .dark-section {
+        background:
+          radial-gradient(circle at top left, rgba(215, 181, 139, 0.08), transparent 28%),
+          linear-gradient(180deg, var(--dark) 0%, #110e0c 100%);
+        color: #f4ede6;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
+        margin-bottom: 28px;
+      }
+
+      .section-head .left {
+        max-width: 860px;
+      }
+
+      .section-kicker {
+        color: var(--accent);
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1.8px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .dark-section .section-kicker {
+        color: var(--gold);
+      }
+
+      .section-title {
+        font-size: clamp(32px, 4vw, 52px);
+        margin-bottom: 14px;
+      }
+
+      .dark-section .section-title {
+        color: #fff;
+      }
+
+      .section-desc {
+        font-size: 17px;
+        color: var(--muted);
+      }
+
+      .dark-section .section-desc {
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .manifesto-wrap {
+        max-width: var(--reading);
+        margin: 0 auto;
+      }
+
+      .quote-panel,
+      .topic-card,
+      .detail-card,
+      .note-card,
+      .highlight-card {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .dark-section .highlight-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+      }
+
+      .quote-panel {
+        padding: 28px 28px 28px 30px;
+        border-left: 4px solid var(--accent);
+      }
+
+      .quote-panel p {
+        font-size: 22px;
+        line-height: 1.65;
+        font-style: italic;
+        color: #3d3129;
+      }
+
+      .topic-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .topic-card {
+        padding: 28px;
+        transition: 0.35s ease;
+      }
+
+      .topic-card:hover,
+      .detail-card:hover,
+      .note-card:hover,
+      .highlight-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 28px 60px rgba(34, 29, 24, 0.08);
+      }
+
+      .topic-card h3,
+      .detail-card h3,
+      .note-card h3,
+      .highlight-card h3 {
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+
+      .topic-card p,
+      .detail-card p,
+      .note-card p {
+        color: var(--muted);
+      }
+
+      .detail-stack {
+        display: grid;
+        gap: 18px;
+      }
+
+      .detail-card {
+        padding: 32px;
+      }
+
+      .detail-card p + p {
+        margin-top: 14px;
+      }
+
+      .detail-anchor {
+        display: inline-flex;
+        align-items: center;
+        min-height: 36px;
+        padding: 0 12px;
+        border-radius: 999px;
+        background: rgba(181, 69, 47, 0.08);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .highlight-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .highlight-card {
+        padding: 28px;
+      }
+
+      .highlight-card p {
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .notes-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .note-card {
+        padding: 24px;
+      }
+
+      .cta-band {
+        text-align: center;
+        max-width: 840px;
+        margin: 0 auto;
+      }
+
+      .cta-band h2 {
+        font-size: clamp(32px, 4.5vw, 56px);
+        margin-bottom: 16px;
+      }
+
+      .cta-band p {
+        color: rgba(255, 255, 255, 0.74);
+        font-size: 18px;
+        margin-bottom: 26px;
+      }
+
+      .footer-advanced {
+        border-top: 1px solid var(--line);
+        padding: 36px 0 30px;
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+
+      .footer-brand strong {
+        display: block;
+        font-size: 18px;
+      }
+
+      .footer-brand span {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        font-size: 14px;
+        color: #5a4e45;
+        transition: 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: var(--accent);
+      }
+
+      .footer-external {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .footer-external a {
+        font-size: 14px;
+        color: #5a4e45;
+        transition: 0.2s;
+      }
+
+      .footer-external a:hover {
+        color: var(--accent);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 10px;
+        margin-left: 6px;
+      }
+
+      .social-icons a {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.04);
+        color: #4a4038;
+        font-size: 15px;
+        transition: 0.25s ease;
+      }
+
+      .social-icons a:hover {
+        transform: translateY(-2px);
+        color: #fff;
+      }
+
+      .social-icons a:nth-child(1):hover {
+        background: #e1306c;
+      }
+
+      .social-icons a:nth-child(2):hover {
+        background: #000000;
+      }
+
+      .social-icons a:nth-child(3):hover {
+        background: #0077b5;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+      }
+
+      .footer-bottom p {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: 0.8s ease;
+      }
+
+      .reveal.show {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (max-width: 1180px) {
+        .hero-grid,
+        .topic-grid,
+        .highlight-grid,
+        .notes-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 920px) {
+        .hero-grid,
+        .hero-meta,
+        .mini-grid,
+        .topic-grid,
+        .highlight-grid,
+        .notes-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          position: fixed;
+          top: 94px;
+          left: 20px;
+          right: 20px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 14px;
+          padding: 18px;
+          border-radius: 24px;
+          border: 1px solid var(--line);
+          background: #fff;
+          box-shadow: var(--shadow);
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-10px);
+          transition: 0.25s ease;
+        }
+
+        .nav.active {
+          opacity: 1;
+          pointer-events: auto;
+          transform: none;
+        }
+
+        .menu-toggle {
+          display: inline-grid;
+          place-items: center;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .container,
+        .topbar {
+          width: calc(100% - 24px);
+        }
+
+        .topbar-inner {
+          min-height: 72px;
+          padding: 0 16px;
+        }
+
+        .hero {
+          padding-top: 100px;
+        }
+
+        .hero h1 {
+          letter-spacing: -1px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="progressBar"></div>
+
+    <div class="topbar-wrap">
+      <header class="topbar" id="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="brand">
+            <div class="brand-mark">O</div>
+            <div class="brand-text">
+              Onarımcılar
+              <small>Hap Bilgiler</small>
+            </div>
+          </a>
+
+          <nav class="nav" id="mobileNav">
+            <div class="nav-item">
+              <span>Başlıklar</span>
+              <div class="dropdown">
+                <a href="#sacagli">Saçaklı Mantık</a>
+                <a href="#kedi">Schrödinger’in Kedisi</a>
+                <a href="#kuantum">Kaos Teorisi</a>
+                <a href="#aydinlanma">İkinci Aydınlanma Çağı</a>
+                <a href="#anadil">Anadil ve Şuur</a>
+                <a href="#safsatalar">Safsatalar</a>
+              </div>
+            </div>
+
+            <div class="nav-item">
+              <span>Bağlantılar</span>
+              <div class="dropdown">
+                <a href="index.html">Anasayfa</a>
+                <a href="turna.html">Turna</a>
+                <a href="hakkimizda.html">Hakkımızda</a>
+              </div>
+            </div>
+
+            <a href="#icerik">İçerik</a>
+            <a href="#son">Son</a>
+          </nav>
+
+          <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+      </header>
+    </div>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="anasayfa">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <div class="eyebrow">Düşünsel İzlekler</div>
+            <h1>
+              Hap bilgiler değil,
+              <span>açılan kapılar.</span>
+            </h1>
+            <p>
+              Bu sayfa, Onarımcılar evreninde geçen bazı temel düşünsel
+              başlıkları bir araya getirir. Her biri kendi başına kısa görünse
+              de, metnin daha derin akışına açılan zihinsel eşiklerdir.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#icerik" class="btn btn-primary">Başlıklara Git</a>
+              <a href="index.html" class="btn btn-secondary">Anasayfaya Dön</a>
+            </div>
+
+            <div class="hero-meta">
+              <div class="meta-box">
+                <strong>06</strong>
+                <span>Ana başlık ve düşünsel giriş noktası</span>
+              </div>
+              <div class="meta-box">
+                <strong>01</strong>
+                <span>Birbirine bağlanan ortak zihinsel çerçeve</span>
+              </div>
+              <div class="meta-box">
+                <strong>∞</strong>
+                <span>Yeni metinlerle büyüyebilecek açık alan</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-panel reveal">
+            <div class="panel-top">
+              <div class="panel-tag">Okuma Haritası</div>
+              <div class="dots"><span></span><span></span><span></span></div>
+            </div>
+
+            <div class="visual-card">
+              <div class="visual-overlay">
+                <strong>Kısa olan, yüzeysel olmak zorunda değil</strong>
+                <span>
+                  Bu başlıklar kısa notlar gibi görünse de, her biri daha büyük
+                  bir düşünsel ağın düğüm noktasıdır.
+                </span>
+              </div>
+            </div>
+
+            <div class="mini-grid">
+              <div class="mini-card">
+                <h4>Mantık</h4>
+                <p>Dünyayı iki kutupta değil, dereceler içinde okuma.</p>
+              </div>
+              <div class="mini-card">
+                <h4>Kuantum</h4>
+                <p>Kesinlik yerine katmanlılık ve ihtimal bilinci.</p>
+              </div>
+              <div class="mini-card">
+                <h4>Dil</h4>
+                <p>Düşüncenin hammaddesi olarak anadilin önemi.</p>
+              </div>
+              <div class="mini-card">
+                <h4>Safsata</h4>
+                <p>Yanıltıcı düşünme kalıplarını fark etme disiplini.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GİRİŞ -->
+      <section class="soft-section">
+        <div class="container">
+          <div class="manifesto-wrap">
+            <div class="quote-panel reveal">
+              <p>
+                Bir düşünce sistemi, büyük iddialar kadar küçük kavramlarla da
+                kurulur. Bazen bir başlık, uzun bir metnin taşıdığı bütün
+                gerilimi tek başına haber verir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ÖN BAKIŞ -->
+      <section id="icerik">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Başlıklar</div>
+              <h2 class="section-title">Hap bilgiler, açılan izlekler</h2>
+              <p class="section-desc">
+                Aşağıdaki kartlar, detay bölümlerinin kısa ön izlemesi olarak
+                tasarlanmıştır.
+              </p>
+            </div>
+          </div>
+
+          <div class="topic-grid">
+            <article class="topic-card reveal">
+              <h3>Saçaklı Mantık</h3>
+              <p>
+                İkili karşıtlıkları aşan ve sahici dünyanın gri alanlarını
+                hesaba katan düşünme biçimi.
+              </p>
+            </article>
+
+            <article class="topic-card reveal">
+              <h3>Schrödinger’in Kedisi</h3>
+              <p>
+                Tek bir kesinliğe indirgenemeyen gerçekliğin düşünsel örneği.
+              </p>
+            </article>
+
+            <article class="topic-card reveal">
+              <h3>Kaos Teorisi</h3>
+              <p>
+                Küçük etki ile büyük sonuç arasındaki görünmez bağı okuma
+                yeteneği.
+              </p>
+            </article>
+
+            <article class="topic-card reveal">
+              <h3>İkinci Aydınlanma Çağı</h3>
+              <p>
+                Newtoncu kesinlikten kuantumcu bütünselliğe geçişin adı.
+              </p>
+            </article>
+
+            <article class="topic-card reveal">
+              <h3>Anadil ve Şuur</h3>
+              <p>
+                Düşüncenin asıl malzemesinin dil olduğu fikri.
+              </p>
+            </article>
+
+            <article class="topic-card reveal">
+              <h3>Safsatalar</h3>
+              <p>
+                Akıl yürütmeyi bozan görünmez tuzakları fark etme disiplini.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- DETAYLAR -->
+      <section class="soft-section">
+        <div class="container">
+          <div class="detail-stack">
+            <article class="detail-card reveal" id="sacagli">
+              <span class="detail-anchor">01 · Saçaklı Mantık</span>
+              <h3>Ya doğru ya yanlış değil; derece derece gerçeklik</h3>
+              <p>
+                Saçaklı mantık, dünyayı sadece iki kesin kutba ayıran düşünme
+                biçiminin ötesine geçer. Bir şeyin mutlak biçimde doğru ya da
+                yanlış sayılmasının her zaman yeterli olmadığını; sahici
+                dünyanın gri alanlar, dereceler ve geçişlerden oluştuğunu kabul
+                eder.
+              </p>
+              <p>
+                Bu yaklaşım, Onarımcılar evreninde yalnızca mantıksal bir tercih
+                değil; aynı zamanda hayatı okuma biçimidir. İnsan, toplum,
+                tarih ve gündelik durumlar çoğu zaman tek bir hükümle
+                açıklanamaz. Saçaklı mantık, bu nedenle düşünceyi daha dikkatli,
+                daha esnek ve daha sahici hale getirir.
+              </p>
+            </article>
+
+            <article class="detail-card reveal" id="kedi">
+              <span class="detail-anchor">02 · Schrödinger’in Kedisi</span>
+              <h3>Kesinlik sarsıldığında düşünce derinleşir</h3>
+              <p>
+                Schrödinger’in Kedisi, kuantum düşüncesinin en bilinen zihinsel
+                modellerinden biridir. Bir şeyin yalnızca tek bir kesinlik
+                içinde kavranamayacağını; gözlem, ihtimal ve durumun birlikte
+                düşünülmesi gerektiğini görünür kılar.
+              </p>
+              <p>
+                Bu başlık, Onarımcı düşünce için yalnızca fiziksel bir örnek
+                değildir. Aynı zamanda insanın olaylara mutlak hükümle değil,
+                katmanlı okuma disipliniyle yaklaşmasını önerir. Kesinlik
+                konforludur; ama çoğu zaman eksiktir. Derin düşünce ise
+                belirsizliğin içinde dikkatle durabilmeyi gerektirir.
+              </p>
+            </article>
+
+            <article class="detail-card reveal" id="kuantum">
+              <span class="detail-anchor">03 · Kaos Teorisi</span>
+              <h3>Küçük olanın büyük olanı etkileyebildiği dünya</h3>
+              <p>
+                Kaos teorisi, küçük değişimlerin büyük sonuçlar doğurabileceği
+                bilgisini taşır. Bu, toplumsal hayatı, tarihi ve bireysel
+                davranışı doğrusal bir sebep-sonuç zinciri gibi görmeme çağrısı
+                da içerir.
+              </p>
+              <p>
+                Onarımcılar için kaos, yalnızca düzensizlik değildir. Aynı
+                zamanda yeni düzenin, yeni akışın ve öngörülemeyen açılımların
+                da zemini olabilir. Bu nedenle kaos bilgisi; paniğe değil,
+                farkındalığa ve dikkatli bakışa çağırır.
+              </p>
+            </article>
+
+            <article class="detail-card reveal" id="aydinlanma">
+              <span class="detail-anchor">04 · İkinci Aydınlanma Çağı</span>
+              <h3>Newton’dan kuantuma, parçadan bütüne</h3>
+              <p>
+                İkinci Aydınlanma Çağı ifadesi, Newtoncu mekanik dünya
+                görüşünden kuantum ve bütüncül düşünceye geçişi işaret eder.
+                Burada mesele yalnızca bilimsel bir değişim değildir; aynı
+                zamanda dünyanın nasıl anlaşıldığına dair zihinsel bir kırılmadır.
+              </p>
+              <p>
+                “Bütün, parçaların toplamından büyüktür” fikri bu nedenle
+                önemlidir. İnsan, toplum, kültür ve tarih; yalnızca atomize
+                edilmiş verilerle kavranamaz. Bütünlük, ilişkiler ve bağlam da
+                en az parçalar kadar belirleyicidir.
+              </p>
+            </article>
+
+            <article class="detail-card reveal" id="anadil">
+              <span class="detail-anchor">05 · Anadil ve Şuur</span>
+              <h3>Düşüncenin hammaddesi dilse, dil zayıfladığında şuur da zayıflar</h3>
+              <p>
+                Anadil ve şuur başlığı, düşüncenin temel malzemesinin dil
+                olduğu fikrine dayanır. İnsan, dünyayı yalnızca görmez; onu
+                dil aracılığıyla kurar, anlamlandırır ve taşır.
+              </p>
+              <p>
+                Anadili derinlemesine içselleştiremeyen bireyin yaratıcı düşünme
+                kapasitesinin zayıfladığı savunulur. Çünkü kelime dağarcığı
+                daraldıkça kavrama gücü de daralır. Dil yalnızca iletişim aracı
+                değil; düşünmenin, ayıklamanın ve derinleşmenin de zemindir.
+              </p>
+            </article>
+
+            <article class="detail-card reveal" id="safsatalar">
+              <span class="detail-anchor">06 · Safsatalar</span>
+              <h3>Yanıltıcı akıl yürütmeye karşı dikkat disiplini</h3>
+              <p>
+                Safsatalar, akıl yürütmeyi bozan ve kişiyi sahici düşünceden
+                uzaklaştıran mantık hatalarıdır. Çoğu zaman çok ikna edici
+                görünürler; fakat görünürdeki ikna, gerçekte sağlam bir düşünce
+                yapısına dayanmaz.
+              </p>
+              <p>
+                Bu başlık, dolduruşa gelmemek, manipülasyona kapılmamak ve daha
+                sahici bir tartışma zemini kurmak için önemlidir. Onarımcı
+                düşünce, yalnızca ne söylediğimizle değil; nasıl düşündüğümüzle
+                de ilgilenir. Safsataları fark etmek, bu yüzden bir zihinsel
+                temizlik işidir.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- KARANLIK VURGU -->
+      <section class="dark-section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Ortak Zemin</div>
+              <h2 class="section-title">Bu başlıklar neden birlikte önemli?</h2>
+              <p class="section-desc">
+                Ayrı ayrı görünen bu kavramlar, birlikte düşünüldüğünde ortak
+                bir zihinsel omurga oluşturur.
+              </p>
+            </div>
+          </div>
+
+          <div class="highlight-grid">
+            <article class="highlight-card reveal">
+              <h3>Kesinlik eleştirisi</h3>
+              <p>
+                Saçaklı mantık, kuantum ve kaos teorisi; mutlak kesinliğin
+                her zaman güvenilir olmadığını gösterir.
+              </p>
+            </article>
+
+            <article class="highlight-card reveal">
+              <h3>Bütüncül bakış</h3>
+              <p>
+                İkinci Aydınlanma Çağı ve kuantum yaklaşımı; parçaları değil,
+                bütünü de düşünmeye çağırır.
+              </p>
+            </article>
+
+            <article class="highlight-card reveal">
+              <h3>Düşünce disiplini</h3>
+              <p>
+                Anadil ve safsatalar başlığı; düşüncenin hem malzemesini hem de
+                temizliğini aynı anda gündeme getirir.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTLAR -->
+      <section id="son">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="left">
+              <div class="section-kicker">Kısa Notlar</div>
+              <h2 class="section-title">Bu sayfa nasıl genişletilebilir?</h2>
+              <p class="section-desc">
+                Yapı, daha sonra bağımsız detay sayfalarına da dönüştürülebilir.
+              </p>
+            </div>
+          </div>
+
+          <div class="notes-grid">
+            <article class="note-card reveal">
+              <h3>Ayrı detay sayfaları</h3>
+              <p>
+                Her başlık daha sonra tek başına bağımsız bir içerik sayfasına
+                dönüşebilir.
+              </p>
+            </article>
+
+            <article class="note-card reveal">
+              <h3>Kaynak bağlama</h3>
+              <p>
+                İleride ilgili başlıkların hangi metinlerden beslendiği ayrı
+                referanslarla gösterilebilir.
+              </p>
+            </article>
+
+            <article class="note-card reveal">
+              <h3>Filtreli yapı</h3>
+              <p>
+                Bilim, dil, mantık, toplum gibi temalarla ikinci bir sınıflama
+                da kurulabilir.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-advanced">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <strong>Onarımcılar</strong>
+            <span>Bir topluluk değil, bir yöneliş.</span>
+          </div>
+
+          <div class="footer-links">
+            <a href="#anasayfa">Başlangıç</a>
+            <a href="#icerik">İçerik</a>
+            <a href="index.html">Anasayfa</a>
+          </div>
+
+          <div class="footer-external">
+            <a href="https://alevalatli.org" target="_blank">alevalatli.org</a>
+            <a href="https://kapadokya.edu.tr" target="_blank">kapadokya.edu.tr</a>
+
+            <div class="social-icons">
+              <a href="#" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" target="_blank" aria-label="Twitter">
+                <i class="fab fa-x-twitter"></i>
+              </a>
+              <a href="#" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 Onarımcılar Manifestosu • Kapadokya Üniversitesi</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const menuToggle = document.getElementById("menuToggle");
+      const mobileNav = document.getElementById("mobileNav");
+      const topbar = document.getElementById("topbar");
+      const progressBar = document.getElementById("progressBar");
+
+      menuToggle.addEventListener("click", function () {
+        mobileNav.classList.toggle("active");
+      });
+
+      document.querySelectorAll(".nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileNav.classList.remove("active");
+        });
+      });
+
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 10) {
+          topbar.classList.add("scrolled");
+        } else {
+          topbar.classList.remove("scrolled");
+        }
+
+        const scrollTop = window.scrollY;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / docHeight) * 100;
+        progressBar.style.width = progress + "%";
+      });
+
+      const reveals = document.querySelectorAll(".reveal");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      reveals.forEach((item) => observer.observe(item));
+
+      document.querySelectorAll(".nav-item span").forEach((item) => {
+        item.addEventListener("click", () => {
+          const parent = item.parentElement;
+          parent.classList.toggle("open");
+        });
+      });
+    </script>
+  </body>
+</html>
