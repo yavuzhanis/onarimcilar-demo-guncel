@@ -1,0 +1,1935 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>İnternet TV | Onarımcılar Manifestosu</title>
+    <meta
+      name="description"
+      content="Onarımcılar İnternet TV: düşünce, hafıza, söyleşi, kısa seçki ve görsel arşiv içerikleri."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="source/css/style.css" />
+
+    <style>
+      :root {
+        --page-bg: #070707;
+        --ink: #ffffff;
+        --muted: rgba(255, 255, 255, 0.66);
+        --muted-2: rgba(255, 255, 255, 0.44);
+        --line: rgba(255, 255, 255, 0.12);
+        --line-soft: rgba(255, 255, 255, 0.075);
+        --panel: rgba(255, 255, 255, 0.065);
+        --panel-2: rgba(255, 255, 255, 0.095);
+        --gold: #d8a24b;
+        --gold-2: #f2c36b;
+        --red: #d94b35;
+        --green: #96b46b;
+        --radius: 28px;
+        --radius-lg: 42px;
+        --shadow: 0 34px 110px rgba(0, 0, 0, 0.48);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 18% 12%, rgba(216, 162, 75, 0.12), transparent 28%),
+          radial-gradient(circle at 82% 10%, rgba(217, 75, 53, 0.12), transparent 26%),
+          radial-gradient(circle at 50% 88%, rgba(150, 180, 107, 0.09), transparent 32%),
+          var(--page-bg);
+        color: var(--ink);
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+        background-size: 70px 70px;
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), rgba(0,0,0,.25), transparent);
+        z-index: -1;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(circle at center, transparent 36%, rgba(0,0,0,.46));
+        z-index: -1;
+      }
+
+      .nav a.active-link {
+        color: var(--gold);
+      }
+
+      .brand-mark {
+        background: linear-gradient(135deg, var(--gold), #7a4a19);
+        color: #080807;
+        box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 18px 45px rgba(216,162,75,.22);
+      }
+
+      /* MODAL */
+      .video-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(0, 0, 0, 0.86);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.28s ease;
+      }
+
+      .video-modal.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .video-modal-dialog {
+        position: relative;
+        width: min(1100px, 100%);
+        aspect-ratio: 16 / 9;
+        border-radius: 28px;
+        overflow: hidden;
+        background: #000;
+        border: 1px solid rgba(255,255,255,.16);
+        box-shadow: 0 45px 120px rgba(0,0,0,.62);
+      }
+
+      .video-modal-dialog iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+
+      .video-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 2;
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.16);
+        background: rgba(255,255,255,.14);
+        color: #fff;
+        font-size: 28px;
+        cursor: pointer;
+        backdrop-filter: blur(12px);
+      }
+
+      /* HERO */
+      .tv-landing {
+        position: relative;
+        min-height: 100vh;
+        padding: 136px 0 70px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .tv-landing::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(7,7,7,.96) 0%, rgba(7,7,7,.82) 38%, rgba(7,7,7,.36) 100%),
+          linear-gradient(to top, #070707 0%, rgba(7,7,7,.2) 46%, rgba(7,7,7,.42) 100%),
+          url("https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=2200&q=85") center right / cover;
+        z-index: -3;
+      }
+
+      .tv-landing::after {
+        content: "İNTERNET TV";
+        position: absolute;
+        right: -42px;
+        bottom: 32px;
+        font-size: clamp(74px, 13vw, 220px);
+        font-weight: 900;
+        letter-spacing: -0.08em;
+        color: rgba(255,255,255,.035);
+        z-index: -1;
+        white-space: nowrap;
+      }
+
+      .tv-hero-layout {
+        display: grid;
+        grid-template-columns: 0.82fr 1.18fr;
+        gap: 46px;
+        align-items: end;
+      }
+
+      .tv-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 15px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.13);
+        color: rgba(255,255,255,.78);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin-bottom: 26px;
+        backdrop-filter: blur(14px);
+      }
+
+      .tv-kicker i {
+        color: var(--gold);
+      }
+
+      .tv-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(58px, 8vw, 128px);
+        line-height: .88;
+        letter-spacing: -0.065em;
+        margin: 0 0 28px;
+      }
+
+      .tv-title em {
+        display: block;
+        color: var(--gold-2);
+        font-style: italic;
+      }
+
+      .tv-lead {
+        max-width: 690px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.85;
+        margin-bottom: 34px;
+      }
+
+      .tv-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .tv-identity-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 44px;
+        max-width: 760px;
+      }
+
+      .identity-chip {
+        padding: 18px;
+        border-radius: 22px;
+        background: rgba(255,255,255,.065);
+        border: 1px solid rgba(255,255,255,.11);
+        backdrop-filter: blur(14px);
+      }
+
+      .identity-chip strong {
+        display: block;
+        color: var(--gold);
+        font-size: 13px;
+        margin-bottom: 8px;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+
+      .identity-chip span {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .hero-screen-stack {
+        position: relative;
+        min-height: 660px;
+      }
+
+      .screen-shell {
+        position: absolute;
+        inset: 0 0 auto auto;
+        width: min(760px, 100%);
+        min-height: 520px;
+        border-radius: 42px;
+        padding: 12px;
+        background: rgba(255,255,255,.09);
+        border: 1px solid rgba(255,255,255,.16);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(20px);
+        overflow: hidden;
+      }
+
+      .screen-main {
+        position: relative;
+        min-height: 496px;
+        border-radius: 32px;
+        overflow: hidden;
+        background: #000;
+        cursor: pointer;
+      }
+
+      .screen-main img {
+        width: 100%;
+        min-height: 496px;
+        object-fit: cover;
+        display: block;
+        opacity: .84;
+        transition: .6s ease;
+      }
+
+      .screen-main:hover img {
+        transform: scale(1.05);
+      }
+
+      .screen-main::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(to top, rgba(0,0,0,.92), rgba(0,0,0,.24), rgba(0,0,0,.1)),
+          radial-gradient(circle at 50% 48%, rgba(216,162,75,.22), transparent 32%);
+      }
+
+      .tv-live {
+        position: absolute;
+        z-index: 3;
+        top: 24px;
+        left: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(0,0,0,.46);
+        border: 1px solid rgba(255,255,255,.15);
+        backdrop-filter: blur(14px);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+
+      .tv-live span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 0 7px rgba(217,75,53,.2);
+      }
+
+      .big-play {
+        position: absolute;
+        z-index: 4;
+        left: 50%;
+        top: 44%;
+        transform: translate(-50%, -50%);
+        width: 104px;
+        height: 104px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(255,255,255,.22);
+        backdrop-filter: blur(18px);
+        color: #fff;
+        font-size: 34px;
+        transition: .3s ease;
+      }
+
+      .screen-main:hover .big-play {
+        transform: translate(-50%, -50%) scale(1.08);
+        background: rgba(216,162,75,.27);
+      }
+
+      .screen-meta {
+        position: absolute;
+        z-index: 4;
+        left: 26px;
+        right: 26px;
+        bottom: 26px;
+      }
+
+      .screen-meta small {
+        display: inline-block;
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      .screen-meta h2 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(34px, 4vw, 58px);
+        line-height: .98;
+        margin-bottom: 14px;
+      }
+
+      .screen-meta p {
+        color: rgba(255,255,255,.68);
+        line-height: 1.65;
+        max-width: 620px;
+      }
+
+      .floating-card {
+        position: absolute;
+        z-index: 5;
+        left: 0;
+        bottom: 28px;
+        width: 320px;
+        padding: 22px;
+        border-radius: 26px;
+        background: rgba(15,15,14,.78);
+        border: 1px solid rgba(255,255,255,.14);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 25px 70px rgba(0,0,0,.36);
+      }
+
+      .floating-card .mini-label {
+        color: var(--gold);
+        font-weight: 900;
+        font-size: 12px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .floating-card h3 {
+        font-size: 23px;
+        line-height: 1.2;
+        margin-bottom: 10px;
+      }
+
+      .floating-card p {
+        color: rgba(255,255,255,.6);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .vertical-tabs {
+        position: absolute;
+        z-index: 6;
+        right: -10px;
+        bottom: 42px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .vertical-tabs a {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        text-decoration: none;
+        color: rgba(255,255,255,.68);
+        padding: 14px 10px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.1);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: .06em;
+        backdrop-filter: blur(12px);
+      }
+
+      /* SECTION */
+      .tv-section {
+        padding: 112px 0;
+        position: relative;
+      }
+
+      .tv-section.alt {
+        background:
+          linear-gradient(to bottom, rgba(255,255,255,.025), rgba(255,255,255,.01)),
+          radial-gradient(circle at 12% 20%, rgba(216,162,75,.08), transparent 26%);
+      }
+
+      .editorial-head {
+        display: grid;
+        grid-template-columns: .72fr 1.28fr;
+        gap: 44px;
+        align-items: end;
+        margin-bottom: 48px;
+      }
+
+      .section-number {
+        color: rgba(255,255,255,.18);
+        font-size: 76px;
+        font-weight: 900;
+        line-height: .85;
+        letter-spacing: -0.08em;
+      }
+
+      .editorial-head h2 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(42px, 5vw, 82px);
+        line-height: .96;
+        letter-spacing: -0.045em;
+        margin-bottom: 18px;
+      }
+
+      .editorial-head p {
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 760px;
+      }
+
+      /* MARQUEE */
+      .marquee-wrap {
+        overflow: hidden;
+        border-top: 1px solid var(--line-soft);
+        border-bottom: 1px solid var(--line-soft);
+        background: rgba(255,255,255,.035);
+      }
+
+      .marquee {
+        display: flex;
+        width: max-content;
+        animation: marquee 24s linear infinite;
+      }
+
+      .marquee span {
+        padding: 22px 30px;
+        color: rgba(255,255,255,.38);
+        font-size: 15px;
+        font-weight: 900;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+
+      .marquee b {
+        color: var(--gold);
+      }
+
+      @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+
+      /* FEATURE STRIP */
+      .feature-row {
+        display: grid;
+        grid-template-columns: 1.1fr .9fr .9fr;
+        gap: 22px;
+      }
+
+      .feature-card {
+        position: relative;
+        min-height: 470px;
+        overflow: hidden;
+        border-radius: 34px;
+        background: #111;
+        border: 1px solid var(--line);
+        cursor: pointer;
+      }
+
+      .feature-card.large {
+        min-height: 610px;
+        grid-row: span 2;
+      }
+
+      .feature-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: .82;
+        transition: .65s ease;
+      }
+
+      .feature-card:hover img {
+        transform: scale(1.07);
+        opacity: .92;
+      }
+
+      .feature-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,.92), rgba(0,0,0,.15), rgba(0,0,0,.05));
+      }
+
+      .feature-content {
+        position: absolute;
+        z-index: 3;
+        inset: auto 0 0 0;
+        padding: 30px;
+      }
+
+      .feature-content .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .feature-content h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 38px;
+        line-height: 1;
+        margin-bottom: 14px;
+      }
+
+      .feature-card:not(.large) .feature-content h3 {
+        font-size: 28px;
+      }
+
+      .feature-content p {
+        color: rgba(255,255,255,.64);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .card-play {
+        position: absolute;
+        z-index: 4;
+        top: 24px;
+        right: 24px;
+        width: 54px;
+        height: 54px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255,255,255,.14);
+        border: 1px solid rgba(255,255,255,.16);
+        backdrop-filter: blur(12px);
+        color: #fff;
+      }
+
+      /* CHANNELS */
+      .channel-wall {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 18px;
+      }
+
+      .wall-card {
+        position: relative;
+        min-height: 250px;
+        padding: 26px;
+        border-radius: 30px;
+        background:
+          linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.035));
+        border: 1px solid var(--line);
+        overflow: hidden;
+        transition: .3s ease;
+      }
+
+      .wall-card:nth-child(1) { grid-column: span 5; }
+      .wall-card:nth-child(2) { grid-column: span 4; }
+      .wall-card:nth-child(3) { grid-column: span 3; }
+      .wall-card:nth-child(4) { grid-column: span 3; }
+      .wall-card:nth-child(5) { grid-column: span 5; }
+      .wall-card:nth-child(6) { grid-column: span 4; }
+      .wall-card:nth-child(7) { grid-column: span 6; }
+      .wall-card:nth-child(8) { grid-column: span 6; }
+
+      .wall-card::before {
+        content: "";
+        position: absolute;
+        width: 210px;
+        height: 210px;
+        right: -90px;
+        top: -90px;
+        border-radius: 50%;
+        background: rgba(216,162,75,.12);
+        transition: .35s ease;
+      }
+
+      .wall-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(216,162,75,.34);
+        box-shadow: 0 26px 80px rgba(0,0,0,.22);
+      }
+
+      .wall-card:hover::before {
+        transform: scale(1.25);
+      }
+
+      .wall-icon {
+        position: relative;
+        z-index: 2;
+        width: 56px;
+        height: 56px;
+        display: grid;
+        place-items: center;
+        border-radius: 18px;
+        background: rgba(216,162,75,.15);
+        color: var(--gold);
+        font-size: 22px;
+        margin-bottom: 28px;
+      }
+
+      .wall-card h3 {
+        position: relative;
+        z-index: 2;
+        font-size: 25px;
+        margin-bottom: 14px;
+      }
+
+      .wall-card p {
+        position: relative;
+        z-index: 2;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 560px;
+      }
+
+      .wall-no {
+        position: absolute;
+        right: 24px;
+        bottom: 16px;
+        font-size: 68px;
+        line-height: 1;
+        font-weight: 900;
+        color: rgba(255,255,255,.055);
+      }
+
+      /* ARCHIVE */
+      .archive-shell {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .archive-filter-panel {
+        position: sticky;
+        top: 120px;
+        padding: 24px;
+        border-radius: 30px;
+        background: rgba(255,255,255,.06);
+        border: 1px solid var(--line);
+      }
+
+      .archive-filter-panel h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+
+      .archive-filter-panel p {
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 14px;
+        margin-bottom: 22px;
+      }
+
+      .filter-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .archive-filter {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.045);
+        color: rgba(255,255,255,.72);
+        border-radius: 18px;
+        padding: 14px 16px;
+        cursor: pointer;
+        font-weight: 800;
+        text-align: left;
+        transition: .25s ease;
+      }
+
+      .archive-filter.active,
+      .archive-filter:hover {
+        background: rgba(216,162,75,.15);
+        border-color: rgba(216,162,75,.34);
+        color: #fff;
+      }
+
+      .archive-list {
+        display: grid;
+        gap: 18px;
+      }
+
+      .archive-item {
+        display: grid;
+        grid-template-columns: 260px 1fr 80px;
+        gap: 22px;
+        align-items: center;
+        min-height: 190px;
+        padding: 14px;
+        border-radius: 30px;
+        background: rgba(255,255,255,.055);
+        border: 1px solid var(--line);
+        cursor: pointer;
+        transition: .3s ease;
+      }
+
+      .archive-item:hover {
+        transform: translateX(8px);
+        background: rgba(255,255,255,.082);
+      }
+
+      .archive-thumb {
+        position: relative;
+        height: 162px;
+        border-radius: 22px;
+        overflow: hidden;
+        background: #000;
+      }
+
+      .archive-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: .84;
+        transition: .45s ease;
+      }
+
+      .archive-item:hover .archive-thumb img {
+        transform: scale(1.06);
+      }
+
+      .archive-duration {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        padding: 6px 9px;
+        border-radius: 999px;
+        background: rgba(0,0,0,.6);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .archive-text small {
+        color: var(--gold);
+        font-weight: 900;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+        font-size: 11px;
+      }
+
+      .archive-text h3 {
+        font-size: 25px;
+        margin: 10px 0 10px;
+      }
+
+      .archive-text p {
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .archive-play {
+        width: 58px;
+        height: 58px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255,255,255,.1);
+        border: 1px solid var(--line);
+        color: #fff;
+      }
+
+      /* DOSSIER */
+      .dossier-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .dossier-card {
+        position: relative;
+        min-height: 440px;
+        padding: 34px;
+        border-radius: 36px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.055);
+      }
+
+      .dossier-card.primary {
+        background:
+          linear-gradient(135deg, rgba(216,162,75,.2), rgba(255,255,255,.04)),
+          rgba(255,255,255,.05);
+      }
+
+      .dossier-card::after {
+        content: "";
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        right: -120px;
+        bottom: -120px;
+        background: rgba(216,162,75,.1);
+      }
+
+      .dossier-card h3 {
+        position: relative;
+        z-index: 2;
+        font-family: "Playfair Display", serif;
+        font-size: 48px;
+        line-height: 1;
+        margin-bottom: 20px;
+      }
+
+      .dossier-card p {
+        position: relative;
+        z-index: 2;
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 620px;
+      }
+
+      .dossier-list {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .dossier-list span {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255,255,255,.74);
+      }
+
+      .dossier-list i {
+        color: var(--gold);
+      }
+
+      /* SHORTS */
+      .shorts-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 18px;
+      }
+
+      .short-card {
+        position: relative;
+        min-height: 470px;
+        border-radius: 34px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #000;
+        cursor: pointer;
+      }
+
+      .short-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: .82;
+        transition: .55s ease;
+      }
+
+      .short-card:hover img {
+        transform: scale(1.08);
+      }
+
+      .short-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,.9), transparent 62%);
+      }
+
+      .short-play {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        z-index: 3;
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: rgba(255,255,255,.14);
+        border: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+      }
+
+      .short-info {
+        position: absolute;
+        z-index: 3;
+        left: 20px;
+        right: 20px;
+        bottom: 22px;
+      }
+
+      .short-info span {
+        color: rgba(255,255,255,.55);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .short-info h3 {
+        margin-top: 8px;
+        font-size: 19px;
+        line-height: 1.25;
+      }
+
+      /* FLOW */
+      .flow-board {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+
+      .flow-card {
+        min-height: 290px;
+        padding: 26px;
+        border-radius: 30px;
+        background: rgba(255,255,255,.055);
+        border: 1px solid var(--line);
+      }
+
+      .flow-card strong {
+        display: block;
+        color: var(--gold);
+        font-size: 13px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      .flow-card h3 {
+        font-size: 25px;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+
+      .flow-card p {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .flow-time {
+        display: inline-flex;
+        margin-top: 26px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.07);
+        border: 1px solid var(--line);
+        color: rgba(255,255,255,.72);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      /* CTA */
+      .final-cta {
+        position: relative;
+        overflow: hidden;
+        border-radius: 46px;
+        padding: 64px;
+        background:
+          linear-gradient(135deg, rgba(216,162,75,.2), rgba(217,75,53,.1)),
+          rgba(255,255,255,.055);
+        border: 1px solid rgba(216,162,75,.24);
+      }
+
+      .final-cta::before {
+        content: "";
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        right: -150px;
+        top: -160px;
+        border-radius: 50%;
+        background: rgba(216,162,75,.12);
+      }
+
+      .final-cta-inner {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 1.05fr .95fr;
+        gap: 36px;
+        align-items: center;
+      }
+
+      .final-cta h2 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(42px, 5vw, 78px);
+        line-height: .98;
+        letter-spacing: -0.045em;
+        margin-bottom: 20px;
+      }
+
+      .final-cta p {
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .cta-form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .cta-form input,
+      .cta-form textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: rgba(0,0,0,.22);
+        color: #fff;
+        padding: 16px 17px;
+        border-radius: 18px;
+        font-family: inherit;
+        outline: none;
+      }
+
+      .cta-form textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .cta-form input::placeholder,
+      .cta-form textarea::placeholder {
+        color: rgba(255,255,255,.42);
+      }
+
+      .cta-form button {
+        border: 0;
+        cursor: pointer;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1180px) {
+        .tv-hero-layout,
+        .editorial-head,
+        .archive-shell,
+        .final-cta-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-screen-stack {
+          min-height: 650px;
+        }
+
+        .screen-shell {
+          left: 0;
+          right: auto;
+        }
+
+        .archive-filter-panel {
+          position: relative;
+          top: auto;
+        }
+
+        .filter-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .shorts-grid,
+        .flow-board {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .feature-row,
+        .dossier-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-card.large {
+          min-height: 520px;
+        }
+
+        .channel-wall {
+          grid-template-columns: 1fr;
+        }
+
+        .wall-card:nth-child(n) {
+          grid-column: auto;
+        }
+
+        .archive-item {
+          grid-template-columns: 220px 1fr;
+        }
+
+        .archive-play {
+          display: none;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .tv-landing {
+          padding: 118px 0 52px;
+        }
+
+        .tv-identity-row,
+        .filter-list,
+        .shorts-grid,
+        .flow-board {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-screen-stack {
+          min-height: auto;
+        }
+
+        .screen-shell {
+          position: relative;
+          width: 100%;
+          min-height: auto;
+          border-radius: 28px;
+        }
+
+        .screen-main,
+        .screen-main img {
+          min-height: 430px;
+        }
+
+        .floating-card,
+        .vertical-tabs {
+          display: none;
+        }
+
+        .big-play {
+          width: 78px;
+          height: 78px;
+          font-size: 25px;
+        }
+
+        .feature-card,
+        .feature-card.large {
+          min-height: 470px;
+        }
+
+        .archive-item {
+          grid-template-columns: 1fr;
+        }
+
+        .archive-thumb {
+          height: 220px;
+        }
+
+        .final-cta {
+          padding: 32px;
+          border-radius: 32px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="video-modal" id="videoModal">
+      <div class="video-modal-dialog">
+        <button class="video-close" id="videoClose" aria-label="Videoyu kapat">
+          &times;
+        </button>
+        <iframe
+          id="videoFrame"
+          src=""
+          title="Onarımcılar İnternet TV"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <div id="progressBar"></div>
+
+    <div class="topbar-wrap">
+      <header class="topbar" id="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="brand">
+            <div class="brand-mark">O</div>
+            <div class="brand-text">
+              Onarımcılar
+              <small>İnternet TV</small>
+            </div>
+          </a>
+
+          <nav class="nav" id="mobileNav">
+            <div class="nav-item">
+              <span>Onarımcılar</span>
+              <div class="dropdown">
+                <a href="hakkımızda.html">Hakkımızda</a>
+                <a href="index.html#giris">Rüya’dan Seçkiler</a>
+                <a href="özellikler.html">Onarımcıların Özellikleri</a>
+                <a href="index.html#mutfaklar">Çalışma Alanları</a>
+                <a href="first.html">İlk Onarımcılar</a>
+                <a href="son.html">Yeni Onarımcılar</a>
+                <a href="mektup.html">Onarımcılara Mektup</a>
+              </div>
+            </div>
+
+            <div class="nav-item">
+              <span>İnternet TV</span>
+              <div class="dropdown">
+                <a href="#vitrin">Vitrin</a>
+                <a href="#kanallar">Kanallar</a>
+                <a href="#arsiv">Arşiv</a>
+                <a href="#akis">Yayın Akışı</a>
+              </div>
+            </div>
+
+            <a href="turna.html">Turna</a>
+            <a href="index.html#besa">5A</a>
+            <a href="internet-tv.html" class="active-link">TV</a>
+          </nav>
+
+          <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç">☰</button>
+        </div>
+      </header>
+    </div>
+
+    <main>
+      <section class="tv-landing" id="anasayfa">
+        <div class="container tv-hero-layout">
+          <div class="tv-copy reveal">
+            <div class="tv-kicker">
+              <i class="fa-solid fa-satellite-dish"></i>
+              Onarımcılar Yayın Platformu
+            </div>
+
+            <h1 class="tv-title">
+              İzle,
+              <em>düşün, onar.</em>
+            </h1>
+
+            <p class="tv-lead">
+              Onarımcılar İnternet TV; söyleşileri, metin okumalarını, kısa düşünce
+              kliplerini ve arşiv kayıtlarını tek bir görsel hafıza alanında toplar.
+              Burası hızlı tüketilen bir video sayfası değil; düşüncenin ekranla
+              buluştuğu yeni bir karşılaşma zemini.
+            </p>
+
+            <div class="tv-actions">
+              <a href="#vitrin" class="btn btn-primary btn-icon">
+                <i class="fa-solid fa-play"></i>
+                Yayınları Aç
+              </a>
+              <a href="#arsiv" class="btn btn-secondary btn-icon">
+                <i class="fa-solid fa-box-archive"></i>
+                Arşive Git
+              </a>
+            </div>
+
+            <div class="tv-identity-row">
+              <div class="identity-chip">
+                <strong>Format</strong>
+                <span>Söyleşi, kısa seçki, okuma ve özel yayın.</span>
+              </div>
+              <div class="identity-chip">
+                <strong>Hafıza</strong>
+                <span>Alev Alatlı ve Onarımcılar çizgisine bağlı görsel arşiv.</span>
+              </div>
+              <div class="identity-chip">
+                <strong>Yöneliş</strong>
+                <span>Eleştiren değil; anlayan, kuran ve onaran bakış.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-screen-stack reveal">
+            <div class="screen-shell">
+              <div class="screen-main video-trigger" data-video="jyWBZkEj4Dw">
+                <img
+                  src="https://img.youtube.com/vi/jyWBZkEj4Dw/maxresdefault.jpg"
+                  alt="Onarımcılar İnternet TV öne çıkan yayın"
+                />
+
+                <div class="tv-live">
+                  <span></span>
+                  Öne Çıkan
+                </div>
+
+                <div class="big-play">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+
+                <div class="screen-meta">
+                  <small>Turna Dosyası</small>
+                  <h2>Turna Milliyetçiliği</h2>
+                  <p>
+                    Hafıza, aidiyet ve düşünsel süreklilik üzerine seçilmiş özel
+                    video içeriği.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="floating-card">
+              <div class="mini-label">Yeni Yayın Dili</div>
+              <h3>Video değil, görsel düşünce alanı.</h3>
+              <p>
+                Her içerik; kavram, hafıza ve sorumluluk ekseninde ayrı bir dosya
+                gibi konumlandırılır.
+              </p>
+            </div>
+
+            <div class="vertical-tabs">
+              <a href="#vitrin">Vitrin</a>
+              <a href="#kanallar">Kanallar</a>
+              <a href="#arsiv">Arşiv</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="marquee-wrap">
+        <div class="marquee">
+          <span><b>Onarımcılar TV</b> / Söyleşi / Arşiv / Kısa Seçki / Turna / 5A / Görsel Hafıza /</span>
+          <span><b>Onarımcılar TV</b> / Söyleşi / Arşiv / Kısa Seçki / Turna / 5A / Görsel Hafıza /</span>
+          <span><b>Onarımcılar TV</b> / Söyleşi / Arşiv / Kısa Seçki / Turna / 5A / Görsel Hafıza /</span>
+        </div>
+      </div>
+
+      <section class="tv-section" id="vitrin">
+        <div class="container">
+          <div class="editorial-head reveal">
+            <div class="section-number">01</div>
+            <div>
+              <div class="section-kicker">Yayın Vitrini</div>
+              <h2>Haftanın seçili ekranı</h2>
+              <p>
+                Onarımcılar İnternet TV’nin ana vitrini; uzun soluklu yayınları,
+                kısa düşünce parçalarını ve arşiv notlarını aynı ekranda buluşturur.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row">
+            <article class="feature-card large reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://img.youtube.com/vi/jyWBZkEj4Dw/maxresdefault.jpg" alt="Turna Milliyetçiliği" />
+              <div class="card-play"><i class="fa-solid fa-play"></i></div>
+              <div class="feature-content">
+                <div class="tag"><i class="fa-solid fa-star"></i> Ana Yayın</div>
+                <h3>Turna Milliyetçiliği</h3>
+                <p>
+                  Turna sembolünü kültürel hafıza, aidiyet ve düşünsel yöneliş
+                  üzerinden ele alan özel dosya yayını.
+                </p>
+              </div>
+            </article>
+
+            <article class="feature-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://img.youtube.com/vi/jyWBZkEj4Dw/hqdefault.jpg" alt="Söyleşi" />
+              <div class="card-play"><i class="fa-solid fa-play"></i></div>
+              <div class="feature-content">
+                <div class="tag">Söyleşi</div>
+                <h3>Onarmak ne demektir?</h3>
+                <p>Eleştiren değil, kuran ve sorumluluk alan düşünce biçimi.</p>
+              </div>
+            </article>
+
+            <article class="feature-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://img.youtube.com/vi/jyWBZkEj4Dw/mqdefault.jpg" alt="Kısa seçki" />
+              <div class="card-play"><i class="fa-solid fa-play"></i></div>
+              <div class="feature-content">
+                <div class="tag">Kısa Seçki</div>
+                <h3>5A’nın taşıyıcı gücü</h3>
+                <p>Akıl, ahlâk, adalet, adap ve aşk üzerine kısa anlatı.</p>
+              </div>
+            </article>
+
+            <article class="feature-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1000&q=80" alt="Genç Onarımcılar" />
+              <div class="card-play"><i class="fa-solid fa-play"></i></div>
+              <div class="feature-content">
+                <div class="tag">Genç Onarımcılar</div>
+                <h3>Yeni sesler</h3>
+                <p>Gençlerin düşünce, metin ve sorumlulukla kurduğu ilişki.</p>
+              </div>
+            </article>
+
+            <article class="feature-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1000&q=80" alt="Arşiv" />
+              <div class="card-play"><i class="fa-solid fa-play"></i></div>
+              <div class="feature-content">
+                <div class="tag">Arşiv</div>
+                <h3>Hafıza kayıtları</h3>
+                <p>Geçmişten bugüne taşınan düşünsel izler ve kayıtlar.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="tv-section alt" id="kanallar">
+        <div class="container">
+          <div class="editorial-head reveal">
+            <div class="section-number">02</div>
+            <div>
+              <div class="section-kicker">Yayın Kanalları</div>
+              <h2>Tek ekranda sekiz düşünce hattı</h2>
+              <p>
+                Bu yapı, düz video listelemek yerine içerikleri bir yayın platformu
+                mantığıyla sınıflandırır. Her kanal ayrı bir düşünsel kapı açar.
+              </p>
+            </div>
+          </div>
+
+          <div class="channel-wall">
+            <article class="wall-card reveal">
+              <div class="wall-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+              <h3>Söyleşi Odası</h3>
+              <p>Akademisyenler, öğrenciler ve düşünce insanlarıyla uzun soluklu konuşmalar.</p>
+              <div class="wall-no">01</div>
+            </article>
+
+            <article class="wall-card reveal">
+              <div class="wall-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+              <h3>Metinden Ekrana</h3>
+              <p>Kitaplardan, alıntılardan ve kurucu metinlerden video okumaları.</p>
+              <div class="wall-no">02</div>
+            </article>
+
+            <article class="wall-card reveal">
+              <div class="wall-icon"><i class="fa-solid fa-feather"></i></div>
+              <h3>Turna</h3>
+              <p>Turna sembolü, aidiyet ve hafıza üzerine özel yayınlar.</p>
+              <div class="wall-no">03</div>
+            </article>
+
+            <article class="wall-card reveal">
+              <div class="wall-icon"><i class="fa-solid fa-lightbulb"></i></div>
+              <h3>Hap Bilgiler</h3>
+              <p>Saçaklı mantık, kaos, kuantum ve 5A üzerine kısa anlatımlar.</p>
+              <div class="wall-no">04</div>
+            </article>
+
+            <article class="wall-card reveal">
+              <div class="wall-icon"><i class="fa-solid fa-box-archive"></i></div>
+              <h3>Arşivden</h3>
+              <p>Alev Alatlı ve Onarımcılar çizgisindeki kayıtları görünür kılan kanal.</p>
+              <div class="wall-no">05</div>
+            </article>
+
+            <article class="wall-card reveal">
+              <div class="wall-icon"><i class="fa-solid fa-users"></i></div>
+              <h3>Genç Onarımcılar</h3>
+              <p>Öğrencilerin düşünsel üretimini ve yorumlarını öne çıkaran yayınlar.</p>
+              <div class="wall-no">06</div>
+            </article>
+
+            <article class="wall-card reveal">
+              <div class="wall-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+              <h3>Onarma Atölyesi</h3>
+              <p>Güncel meseleleri ve kavramları onarıcı bir bakışla yeniden okuma alanı.</p>
+              <div class="wall-no">07</div>
+            </article>
+
+            <article class="wall-card reveal">
+              <div class="wall-icon"><i class="fa-solid fa-tower-broadcast"></i></div>
+              <h3>Özel Yayın</h3>
+              <p>Etkinlikler, dosyalar, toplantılar ve belirli günler için hazırlanan içerikler.</p>
+              <div class="wall-no">08</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="tv-section" id="arsiv">
+        <div class="container">
+          <div class="editorial-head reveal">
+            <div class="section-number">03</div>
+            <div>
+              <div class="section-kicker">Video Arşivi</div>
+              <h2>Düz kart değil, yayın listesi</h2>
+              <p>
+                Arşiv alanı klasik grid yerine editoryal yayın listesi olarak tasarlandı.
+                Kullanıcı içeriği daha rahat tarar, sayfa da daha premium görünür.
+              </p>
+            </div>
+          </div>
+
+          <div class="archive-shell">
+            <aside class="archive-filter-panel reveal">
+              <h3>Arşivi filtrele</h3>
+              <p>Yayınları kategoriye göre süz. Gerçek video bağlantıları geldiğinde yalnızca data-video değerlerini değiştirmen yeterli.</p>
+              <div class="filter-list">
+                <button class="archive-filter active" data-filter="all">Tüm Yayınlar</button>
+                <button class="archive-filter" data-filter="soylesi">Söyleşi</button>
+                <button class="archive-filter" data-filter="turna">Turna</button>
+                <button class="archive-filter" data-filter="arsiv">Arşiv</button>
+                <button class="archive-filter" data-filter="kisa">Kısa Seçki</button>
+              </div>
+            </aside>
+
+            <div class="archive-list">
+              <article class="archive-item reveal video-trigger" data-category="turna" data-video="jyWBZkEj4Dw">
+                <div class="archive-thumb">
+                  <img src="https://img.youtube.com/vi/jyWBZkEj4Dw/maxresdefault.jpg" alt="Turna Milliyetçiliği" />
+                  <div class="archive-duration">18:42</div>
+                </div>
+                <div class="archive-text">
+                  <small>Turna / Özel Yayın</small>
+                  <h3>Turna Milliyetçiliği</h3>
+                  <p>Hafıza, aidiyet ve düşünsel süreklilik üzerine seçilmiş özel video içeriği.</p>
+                </div>
+                <div class="archive-play"><i class="fa-solid fa-play"></i></div>
+              </article>
+
+              <article class="archive-item reveal video-trigger" data-category="soylesi" data-video="jyWBZkEj4Dw">
+                <div class="archive-thumb">
+                  <img src="https://img.youtube.com/vi/jyWBZkEj4Dw/hqdefault.jpg" alt="Onarma fikri" />
+                  <div class="archive-duration">12:08</div>
+                </div>
+                <div class="archive-text">
+                  <small>Söyleşi / Kavram</small>
+                  <h3>Onarmak ne demektir?</h3>
+                  <p>Onarmanın teknik değil, ahlaki ve fikri bir tutum oluşu üzerine.</p>
+                </div>
+                <div class="archive-play"><i class="fa-solid fa-play"></i></div>
+              </article>
+
+              <article class="archive-item reveal video-trigger" data-category="kisa" data-video="jyWBZkEj4Dw">
+                <div class="archive-thumb">
+                  <img src="https://img.youtube.com/vi/jyWBZkEj4Dw/mqdefault.jpg" alt="5A" />
+                  <div class="archive-duration">04:25</div>
+                </div>
+                <div class="archive-text">
+                  <small>Kısa Seçki / 5A</small>
+                  <h3>Akıl, ahlâk, adalet, adap, aşk</h3>
+                  <p>Onarımcılar düşüncesinin taşıyıcı kavramlarına kısa bir bakış.</p>
+                </div>
+                <div class="archive-play"><i class="fa-solid fa-play"></i></div>
+              </article>
+
+              <article class="archive-item reveal video-trigger" data-category="arsiv" data-video="jyWBZkEj4Dw">
+                <div class="archive-thumb">
+                  <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=900&q=80" alt="Arşiv" />
+                  <div class="archive-duration">21:16</div>
+                </div>
+                <div class="archive-text">
+                  <small>Arşiv / Hafıza</small>
+                  <h3>Arşivden seçilmiş konuşmalar</h3>
+                  <p>Düşüncenin sürekliliğini taşıyan eski kayıtlar ve hafıza notları.</p>
+                </div>
+                <div class="archive-play"><i class="fa-solid fa-play"></i></div>
+              </article>
+
+              <article class="archive-item reveal video-trigger" data-category="kisa" data-video="jyWBZkEj4Dw">
+                <div class="archive-thumb">
+                  <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="Saçaklı mantık" />
+                  <div class="archive-duration">03:50</div>
+                </div>
+                <div class="archive-text">
+                  <small>Hap Bilgi / Kavram</small>
+                  <h3>Saçaklı mantık nedir?</h3>
+                  <p>Keskin ikiliklerin ötesinde düşünmeye çağıran kısa anlatım.</p>
+                </div>
+                <div class="archive-play"><i class="fa-solid fa-play"></i></div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tv-section alt" id="dosyalar">
+        <div class="container">
+          <div class="editorial-head reveal">
+            <div class="section-number">04</div>
+            <div>
+              <div class="section-kicker">Dosya Yayınlar</div>
+              <h2>Her dosya ayrı bir düşünce alanı</h2>
+              <p>
+                İnternet TV sayfasını güçlü gösteren şey yalnızca video sayısı değil;
+                yayınların dosya mantığıyla sunulmasıdır.
+              </p>
+            </div>
+          </div>
+
+          <div class="dossier-grid">
+            <article class="dossier-card primary reveal">
+              <h3>Turna Dosyası</h3>
+              <p>
+                Turna sembolü; hafıza, geçiş, umut ve aidiyet kavramlarıyla birlikte
+                düşünülür. Bu dosya, sembolün kültürel ve düşünsel karşılıklarını
+                video içerikleriyle görünür kılar.
+              </p>
+              <div class="dossier-list">
+                <span><i class="fa-solid fa-check"></i> Turna Milliyetçiliği</span>
+                <span><i class="fa-solid fa-check"></i> Hafıza ve aidiyet</span>
+                <span><i class="fa-solid fa-check"></i> Sembol ve düşünsel zemin</span>
+              </div>
+            </article>
+
+            <article class="dossier-card reveal">
+              <h3>5A Dosyası</h3>
+              <p>
+                Akıl, ahlâk, adalet, adap ve aşk kavramları; Onarımcılar düşüncesinin
+                taşıyıcı omurgasını oluşturur. Bu dosya, kavramları kısa ve anlaşılır
+                video anlatımlarla işler.
+              </p>
+              <div class="dossier-list">
+                <span><i class="fa-solid fa-check"></i> Kavram anlatımları</span>
+                <span><i class="fa-solid fa-check"></i> Kısa video seçkileri</span>
+                <span><i class="fa-solid fa-check"></i> Metin destekli yayınlar</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="tv-section" id="kisa">
+        <div class="container">
+          <div class="editorial-head reveal">
+            <div class="section-number">05</div>
+            <div>
+              <div class="section-kicker">Kısa Klipler</div>
+              <h2>Bir dakikada bir fikir</h2>
+              <p>
+                Sosyal medya için kullanılabilecek dikey formatlı kısa düşünce klipleri.
+              </p>
+            </div>
+          </div>
+
+          <div class="shorts-grid">
+            <article class="short-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=80" alt="Kısa klip" />
+              <div class="short-play"><i class="fa-solid fa-play"></i></div>
+              <div class="short-info"><span>00:58</span><h3>Onarmak, yeniden düşünmektir</h3></div>
+            </article>
+
+            <article class="short-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=700&q=80" alt="Kısa klip" />
+              <div class="short-play"><i class="fa-solid fa-play"></i></div>
+              <div class="short-info"><span>01:12</span><h3>Bir topluluğun hafızası nasıl kurulur?</h3></div>
+            </article>
+
+            <article class="short-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=80" alt="Kısa klip" />
+              <div class="short-play"><i class="fa-solid fa-play"></i></div>
+              <div class="short-info"><span>00:46</span><h3>5A neden taşıyıcı omurgadır?</h3></div>
+            </article>
+
+            <article class="short-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=700&q=80" alt="Kısa klip" />
+              <div class="short-play"><i class="fa-solid fa-play"></i></div>
+              <div class="short-info"><span>01:04</span><h3>Turna neyi temsil eder?</h3></div>
+            </article>
+
+            <article class="short-card reveal video-trigger" data-video="jyWBZkEj4Dw">
+              <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=700&q=80" alt="Kısa klip" />
+              <div class="short-play"><i class="fa-solid fa-play"></i></div>
+              <div class="short-info"><span>00:52</span><h3>Kaosla kavga etmeyen bakış</h3></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="tv-section alt" id="akis">
+        <div class="container">
+          <div class="editorial-head reveal">
+            <div class="section-number">06</div>
+            <div>
+              <div class="section-kicker">Yayın Akışı</div>
+              <h2>Haftalık ekran planı</h2>
+              <p>
+                Gerçek takvim netleştiğinde bu alan kolayca güncellenebilir.
+              </p>
+            </div>
+          </div>
+
+          <div class="flow-board">
+            <div class="flow-card reveal">
+              <strong>Pazartesi</strong>
+              <h3>Haftanın Kavramı</h3>
+              <p>Onarımcılar düşüncesinden bir kavram kısa video formatında ele alınır.</p>
+              <div class="flow-time">20:00</div>
+            </div>
+
+            <div class="flow-card reveal">
+              <strong>Çarşamba</strong>
+              <h3>Söyleşi Odası</h3>
+              <p>Akademisyen, öğrenci veya konuk katılımcıyla tematik söyleşi yayımlanır.</p>
+              <div class="flow-time">21:00</div>
+            </div>
+
+            <div class="flow-card reveal">
+              <strong>Cuma</strong>
+              <h3>Arşivden Seçki</h3>
+              <p>Alev Alatlı ve Onarımcılar çizgisinde geçmiş kayıtlar görünür kılınır.</p>
+              <div class="flow-time">19:30</div>
+            </div>
+
+            <div class="flow-card reveal">
+              <strong>Pazar</strong>
+              <h3>Kısa Klipler</h3>
+              <p>Sosyal medyada kullanılabilecek kısa video kesitleri yayımlanır.</p>
+              <div class="flow-time">18:00</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tv-section" id="iletisim">
+        <div class="container">
+          <div class="final-cta reveal">
+            <div class="final-cta-inner">
+              <div>
+                <div class="section-kicker">Katkı ve Öneri</div>
+                <h2>Bir yayın fikrin varsa, bu ekran ona açık.</h2>
+                <p>
+                  Söyleşi, kısa video, okuma seçkisi, arşiv kaydı veya özel dosya
+                  önerileri için bu alan form entegrasyonuna hazır şekilde bırakıldı.
+                </p>
+              </div>
+
+              <form class="cta-form" action="#" method="post">
+                <input type="text" name="name" placeholder="Ad Soyad" />
+                <input type="email" name="email" placeholder="E-posta" />
+                <textarea name="message" placeholder="Yayın fikrinizi yazın"></textarea>
+                <button type="submit" class="btn btn-primary">Öneri Gönder</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-advanced">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <strong>Onarımcılar</strong>
+            <span>İzle, düşün, onar.</span>
+          </div>
+
+          <div class="footer-links">
+            <a href="#anasayfa">Başlangıç</a>
+            <a href="index.html">Anasayfa</a>
+            <a href="#vitrin">Vitrin</a>
+            <a href="#arsiv">Video Arşivi</a>
+          </div>
+
+          <div class="footer-external">
+            <a href="https://alevalatli.org" target="_blank">alevalatli.org</a>
+            <a href="https://kapadokya.edu.tr" target="_blank">kapadokya.edu.tr</a>
+
+            <div class="social-icons">
+              <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+              <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 Onarımcılar İnternet TV • Kapadokya Üniversitesi</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="source/js/main.js"></script>
+
+    <script>
+      document.querySelectorAll(".nav-item span").forEach((item) => {
+        item.addEventListener("click", () => {
+          item.parentElement.classList.toggle("open");
+        });
+      });
+
+      const videoModal = document.getElementById("videoModal");
+      const videoFrame = document.getElementById("videoFrame");
+      const videoClose = document.getElementById("videoClose");
+      const videoTriggers = document.querySelectorAll(".video-trigger");
+
+      function openVideo(videoId) {
+        if (!videoId) return;
+        videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        videoModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeVideo() {
+        videoModal.classList.remove("active");
+        videoFrame.src = "";
+        document.body.style.overflow = "";
+      }
+
+      videoTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", () => openVideo(trigger.dataset.video));
+      });
+
+      videoClose.addEventListener("click", closeVideo);
+
+      videoModal.addEventListener("click", (event) => {
+        if (event.target === videoModal) closeVideo();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeVideo();
+      });
+
+      const archiveFilters = document.querySelectorAll(".archive-filter");
+      const archiveItems = document.querySelectorAll(".archive-item");
+
+      archiveFilters.forEach((filter) => {
+        filter.addEventListener("click", () => {
+          archiveFilters.forEach((btn) => btn.classList.remove("active"));
+          filter.classList.add("active");
+
+          const selected = filter.dataset.filter;
+
+          archiveItems.forEach((item) => {
+            const category = item.dataset.category;
+
+            if (selected === "all" || selected === category) {
+              item.style.display = "grid";
+              setTimeout(() => {
+                item.style.opacity = "1";
+                item.style.transform = "translateX(0)";
+              }, 30);
+            } else {
+              item.style.opacity = "0";
+              item.style.transform = "translateX(14px)";
+              setTimeout(() => {
+                item.style.display = "none";
+              }, 220);
+            }
+          });
+        });
+      });
+
+      const ctaForm = document.querySelector(".cta-form");
+      if (ctaForm) {
+        ctaForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          alert("Form entegrasyonu yapılmadı. Bu alan tasarım amaçlıdır.");
+        });
+      }
+    </script>
+  </body>
+</html>
